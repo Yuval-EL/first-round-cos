@@ -344,5 +344,12 @@ def validate(store):
     for company_id, brief in store.diligence.items():
         _scan_prose(brief, f"diligence/{company_id}", store, errors)
 
+    # The semantic checks assume well-formed records — they index into enums and
+    # compare dates. Running them over data that already failed its shape check
+    # would raise rather than report, so stop here and let the author fix the
+    # shape first. Every error found so far is still returned.
+    if errors:
+        return errors, warnings
+
     _semantic(store, errors, warnings)
     return errors, warnings
