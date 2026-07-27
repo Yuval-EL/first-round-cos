@@ -275,6 +275,22 @@ def _semantic(store, errors, warnings):
         elif store.deal_for_company(company_id) is None:
             warnings.append(f"diligence/{company_id}.json: no deal references this company")
 
+    # If someone wrote on the 26th, "last contact" cannot be the 24th. This is the
+    # exact shape of contradiction that survives a careful read and then gets
+    # noticed by the one person you did not want to notice it.
+    newest_from = {}
+    for thread in store.threads:
+        sender = thread["from"]
+        day = thread["received"][:10]
+        if day > newest_from.get(sender, ""):
+            newest_from[sender] = day
+    for person in store.people_with_rel():
+        latest = newest_from.get(person["id"])
+        if latest and person["rel"]["last_contact"] < latest:
+            errors.append(
+                f"people/{person['id']}.rel.last_contact is {person['rel']['last_contact']} "
+                f"but they sent a message on {latest}")
+
     for person in store.people_with_rel():
         rel = person["rel"]
         if rel["owed_reply"]:
