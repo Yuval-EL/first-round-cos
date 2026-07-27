@@ -1,0 +1,5 @@
+# Check everything out with LF on every platform.
+# make.py writes with newline="\n"; if git handed back CRLF on a Windows clone,
+# `python make.py --check` would report drift on a clean tree and the
+# "regenerates byte for byte" claim would only hold on some machines.
+* text=auto eol=lf
