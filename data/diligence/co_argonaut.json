@@ -1,0 +1,49 @@
+{
+  "company": "co_argonaut",
+  "generated_by": "agt_diligence",
+  "generated_at": "2026-07-26",
+  "confidence": "medium",
+  "headline": "The best timing in the pipeline and the worst reason to move fast. Everything here depends on whether replay is a product or a feature.",
+  "sections": [
+    {
+      "h": "What they do",
+      "body": "Argonaut records everything an agent system does — the prompts, the tool calls, the retrieved context, the model's own reasoning trace — and lets an engineer replay the run deterministically against a different model or a changed prompt. The pitch is that debugging agents currently means reading logs and guessing, and that this is the same problem CI solved for tests.\n\nKwame Asante (per_kwame_asante) built the internal version of this at a company that shipped agents to production and watched them regress silently for three weeks."
+    },
+    {
+      "h": "Why it is in diligence",
+      "body": "It came through per_jonah_reyes, who does not send deals casually — this is the first one he has forwarded in two years, and his note said he would have used it. Referral quality from an operating founder is a different signal from referral quality from an investor, and it is weighted accordingly."
+    },
+    {
+      "h": "Traction",
+      "bullets": [
+        "6 design partners, 4 paying, $11K MRR",
+        "Two partners moved from trial to paid inside three weeks",
+        "No self-serve motion — every customer came through a founder conversation",
+        "Team of three, all engineers, no go-to-market hire"
+      ]
+    },
+    {
+      "h": "The timing problem",
+      "body": "Every seed fund is looking at agent tooling this quarter. That is usually an argument to move fast and is actually an argument to be careful: categories that get crowded at seed tend to produce five funded companies and one survivor, and the survivor is rarely the one that raised first.\n\nThe specific risk is that deterministic replay is a feature the model providers ship themselves within eighteen months. Argonaut's counter is that replay across providers is the point, and a provider will never build that. It is a good answer. It is not yet a proven one."
+    },
+    {
+      "h": "What would have to be true",
+      "bullets": [
+        "That teams keep running agents across more than one model provider, so cross-provider replay stays valuable",
+        "That the buyer is a platform engineering team with a budget, not an individual engineer expensing $20/month",
+        "That Kwame can hire a go-to-market partner — he is currently the entire commercial function"
+      ]
+    }
+  ],
+  "open_questions": [
+    "What happens to the pitch if the two largest model providers ship native tracing in the next year?",
+    "The 4 paying customers all came from Kwame's personal network. What does customer 10 cost?",
+    "Is the buyer a team with budget authority, or an engineer with a company card?"
+  ],
+  "sources": [
+    "Founder call, Jul 18",
+    "Referral note from per_jonah_reyes, Jul 17",
+    "Design-partner reference call, Jul 23 — second scheduled for Jul 29",
+    "Public documentation and pricing for three adjacent tools"
+  ]
+}

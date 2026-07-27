@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal Flow · Chief of Staff — synthetic demo</title>
+<meta name="description" content="Synthetic demonstration data. Every company, founder, message, meeting, and project on this site is invented for the demo. No First Round portfolio company, employee, or communication appears anywhere in it.">
+<meta name="robots" content="noindex">
+<style>
+:root {
+  --bg: #f4f5f8;
+  --surface: #ffffff;
+  --surface-2: #fafbfd;
+  --surface-3: #f1f3f7;
+  --line: #e5e8ee;
+  --line-2: #d3d8e2;
+  --ink: #10131c;
+  --ink-2: #565d70;
+  --ink-3: #8b93a6;
+  --accent: #4b48e0;
+  --accent-2: #6d6afc;
+  --accent-soft: #eeeeff;
+  --accent-line: #cdccfb;
+  --r: #e11d48; --r-soft: #fff1f3; --r-line: #fbcfd8;
+  --a: #c2560c; --a-soft: #fff5ec; --a-line: #fbd9bd;
+  --b: #1d63d8; --b-soft: #eef4ff; --b-line: #c6dbfd;
+  --g: #08795a; --g-soft: #eafaf4; --g-line: #b7e8d7;
+  --n: #6b7280; --n-soft: #f2f4f7; --n-line: #e2e6ed;
+  --nav-bg: #12141d;
+  --nav-bg-2: #191c27;
+  --nav-ink: #9aa1b4;
+  --nav-line: #262a38;
+  --sh1: 0 1px 2px rgba(16,19,28,.06);
+  --sh2: 0 4px 16px rgba(16,19,28,.09);
+  --sh3: 0 12px 34px rgba(16,19,28,.14);
+  --side: 232px;
+  --rad: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: Inter, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13.5px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+a { color: inherit; text-decoration: none; }
+svg { display: block; }
+::selection { background: var(--accent-soft); }
+
+/* ============================ shell ============================ */
+.shell { display: flex; min-height: 100vh; }
+
+.side {
+  width: var(--side); flex: none; background: var(--nav-bg); color: #fff;
+  position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column;
+  z-index: 40;
+}
+.side-top { padding: 16px 16px 12px; border-bottom: 1px solid var(--nav-line); }
+.mark { display: flex; align-items: center; gap: 9px; }
+.mark-badge {
+  width: 26px; height: 26px; border-radius: 8px; flex: none;
+  background: linear-gradient(145deg, var(--accent-2), var(--accent));
+  display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff;
+  box-shadow: 0 2px 8px rgba(75,72,224,.45);
+}
+.mark-name { font-size: 13.5px; font-weight: 650; letter-spacing: -.01em; color: #fff; }
+.mark-sub { font-size: 11px; color: var(--nav-ink); margin-top: 1px; }
+
+.side-nav { padding: 10px 10px; flex: 1; overflow-y: auto; }
+.side-nav .grp {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: #5d6479; padding: 12px 8px 6px;
+}
+.side-nav a {
+  display: flex; align-items: center; gap: 10px; padding: 7px 9px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--nav-ink); margin-bottom: 1px;
+}
+.side-nav a svg { width: 16px; height: 16px; flex: none; stroke: currentColor;
+                  stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.side-nav a:hover { background: var(--nav-bg-2); color: #e8eaf1; }
+.side-nav a.on { background: var(--accent); color: #fff; box-shadow: 0 2px 10px rgba(75,72,224,.4); }
+.side-nav a .cnt {
+  margin-left: auto; font-size: 11px; font-weight: 600; color: #6f778c;
+  font-variant-numeric: tabular-nums;
+}
+.side-nav a.on .cnt { color: rgba(255,255,255,.85); }
+
+.side-foot { padding: 12px 14px 14px; border-top: 1px solid var(--nav-line); }
+.who-chip { display: flex; align-items: center; gap: 9px; }
+.who-chip .nm { font-size: 12.5px; font-weight: 600; color: #e8eaf1; }
+.who-chip .rl { font-size: 11px; color: #6f778c; }
+
+.main { margin-left: var(--side); flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line);
+  padding: 13px 26px 12px; display: flex; align-items: center; gap: 14px;
+}
+.topbar h1 { font-size: 16px; font-weight: 680; letter-spacing: -.02em; }
+.topbar .sub { font-size: 12.5px; color: var(--ink-3); margin-top: 1px; }
+.topbar .right { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+.demo-chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600;
+  color: var(--a); background: var(--a-soft); border: 1px solid var(--a-line);
+  border-radius: 999px; padding: 3px 10px 3px 8px; white-space: nowrap;
+}
+.demo-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--a); }
+.stamp { font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.content { padding: 20px 26px 64px; flex: 1; }
+.lede { font-size: 13.5px; color: var(--ink-2); max-width: 74ch; margin-bottom: 18px; }
+
+/* ============================ primitives ============================ */
+.panelbox { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad); box-shadow: var(--sh1); }
+.blk { margin-top: 22px; }
+.blk-h { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.blk-h h2 { font-size: 12.5px; font-weight: 700; letter-spacing: .02em; }
+.blk-h .n { font-size: 11.5px; font-weight: 600; color: var(--ink-3); background: var(--surface-3);
+            border-radius: 999px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
+.blk-h .note { font-size: 12.5px; color: var(--ink-3); margin-left: auto; }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 650;
+  border-radius: 6px; padding: 2px 7px; border: 1px solid; white-space: nowrap; letter-spacing: .005em;
+}
+.tag.t-r { color: var(--r); background: var(--r-soft); border-color: var(--r-line); }
+.tag.t-a { color: var(--a); background: var(--a-soft); border-color: var(--a-line); }
+.tag.t-b { color: var(--b); background: var(--b-soft); border-color: var(--b-line); }
+.tag.t-g { color: var(--g); background: var(--g-soft); border-color: var(--g-line); }
+.tag.t-n { color: var(--n); background: var(--n-soft); border-color: var(--n-line); }
+.tag.t-ac { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+.tag.dot::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+.av {
+  width: 26px; height: 26px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  font-size: 10.5px; font-weight: 700; color: #fff; letter-spacing: .01em;
+}
+.av.sm { width: 21px; height: 21px; font-size: 9px; }
+.av.lg { width: 34px; height: 34px; font-size: 12px; }
+.avstack { display: flex; }
+.avstack .av { margin-left: -6px; box-shadow: 0 0 0 2px var(--surface); }
+.avstack .av:first-child { margin-left: 0; }
+
+.meter { height: 5px; border-radius: 3px; background: var(--surface-3); overflow: hidden; }
+.meter > i { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.meter.t-r > i { background: var(--r); } .meter.t-a > i { background: var(--a); }
+.meter.t-g > i { background: var(--g); } .meter.t-b > i { background: var(--b); }
+.meter.t-n > i { background: var(--n-line); }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+       padding: 13px 15px 14px; box-shadow: var(--sh1); position: relative; overflow: hidden; }
+.kpi::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--line-2); }
+.kpi.t-r::after { background: var(--r); } .kpi.t-a::after { background: var(--a); }
+.kpi.t-g::after { background: var(--g); } .kpi.t-b::after { background: var(--b); }
+.kpi.t-ac::after { background: var(--accent); }
+.kpi .k { font-size: 11px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
+.kpi .v { margin-top: 6px; font-size: 27px; font-weight: 700; letter-spacing: -.035em;
+          line-height: 1; font-variant-numeric: tabular-nums; }
+.kpi .s { margin-top: 5px; font-size: 12px; color: var(--ink-3); }
+
+.seg { display: inline-flex; background: var(--surface-3); border: 1px solid var(--line);
+       border-radius: 9px; padding: 2px; gap: 2px;
+       max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.seg::-webkit-scrollbar { display: none; }
+.seg button { flex: none; font-size: 12.5px; font-weight: 550; color: var(--ink-2);
+              padding: 4px 11px; border-radius: 7px; white-space: nowrap; }
+.seg button:hover { color: var(--ink); }
+.seg button.active { background: var(--surface); color: var(--ink); box-shadow: var(--sh1); font-weight: 600; }
+.seg button .n { font-variant-numeric: tabular-nums; opacity: .6; margin-left: 4px; }
+
+.bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.srch { position: relative; margin-left: auto; }
+.srch input {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 9px;
+  padding: 6px 11px 6px 30px; font-size: 12.5px; width: 230px; outline: none; box-shadow: var(--sh1);
+}
+.srch input:focus { border-color: var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft); }
+.srch svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
+            width: 14px; height: 14px; stroke: var(--ink-3); stroke-width: 2; fill: none; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 550;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+  padding: 5px 11px; color: var(--ink-2); box-shadow: var(--sh1);
+}
+.btn:hover { border-color: var(--line-2); color: var(--ink); }
+.btn.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent); }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: #fff;
+           box-shadow: 0 2px 8px rgba(75,72,224,.35); }
+.btn.pri:hover { background: #3f3cd4; color: #fff; }
+
+.lnk { color: var(--accent); font-weight: 550; }
+.lnk:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+.empty { padding: 44px 20px; text-align: center; color: var(--ink-3); }
+.empty .big { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.noresult { display: none; padding: 40px 10px; text-align: center; color: var(--ink-3); font-size: 13px; }
+
+.callout { border-radius: var(--rad); padding: 13px 15px; border: 1px solid var(--accent-line);
+           background: linear-gradient(180deg, #f7f7ff, #f2f2ff); }
+.callout .h { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .03em;
+              text-transform: uppercase; margin-bottom: 4px; }
+
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+       background: var(--surface-3); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; }
+pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+      line-height: 1.65; background: #14161f; color: #d6d9e3; border-radius: 10px;
+      padding: 14px 16px; overflow-x: auto; }
+pre code { background: none; border: none; padding: 0; color: inherit; }
+pre .c { color: #6f7891; } pre .k { color: #a5a2ff; } pre .s { color: #7fd0a8; }
+
+/* ============================ tables ============================ */
+.tbl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+       box-shadow: var(--sh1); overflow: hidden; }
+.tbl-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th { text-align: left; font-size: 11px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase;
+     color: var(--ink-3); white-space: nowrap; padding: 10px 14px; background: var(--surface-2);
+     border-bottom: 1px solid var(--line); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.nw { white-space: nowrap; }
+td .t1 { font-weight: 600; }
+td .t2 { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); }
+
+/* ============================ board (Deal Flow) ============================ */
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(262px, 1fr);
+         gap: 12px; overflow-x: auto; padding-bottom: 8px; align-items: start; }
+.col { background: var(--surface-3); border: 1px solid var(--line); border-radius: var(--rad); padding: 9px; }
+.col-h { display: flex; align-items: center; gap: 7px; padding: 3px 5px 10px; }
+.col-h .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.col-h .nm { font-size: 12px; font-weight: 700; letter-spacing: .01em; }
+.col-h .n { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--ink-3);
+            background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+            padding: 0 7px; font-variant-numeric: tabular-nums; }
+.col-list { display: flex; flex-direction: column; gap: 8px; }
+.dcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+         padding: 11px 12px 10px; box-shadow: var(--sh1); scroll-margin-top: 110px;
+         transition: box-shadow .13s ease, transform .13s ease, border-color .13s ease; }
+.dcard:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
+.dcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.dcard .top { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+.dcard .nm { font-size: 13.5px; font-weight: 680; letter-spacing: -.012em; }
+.dcard .ol { margin-top: 3px; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+.dcard .mrow { margin-top: 9px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+.dcard .rnd { font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.dcard .sc { margin-top: 9px; display: flex; align-items: center; gap: 8px; }
+.dcard .sc .meter { flex: 1; }
+.dcard .sc .v { font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.dcard .foot { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line);
+               display: flex; align-items: center; gap: 8px; }
+.dcard .foot .why { font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis;
+                    white-space: nowrap; }
+
+/* ============================ master / detail (Inbox) ============================ */
+.md { display: grid; grid-template-columns: 372px minmax(0, 1fr); gap: 12px; align-items: start; }
+.md-list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+           box-shadow: var(--sh1); overflow: hidden; }
+.trow { display: flex; gap: 10px; padding: 11px 13px; border-bottom: 1px solid var(--line);
+        cursor: pointer; border-left: 3px solid transparent; }
+.trow:last-child { border-bottom: none; }
+.trow:hover { background: var(--surface-2); }
+.trow.sel { background: var(--accent-soft); border-left-color: var(--accent); }
+.trow .body { min-width: 0; flex: 1; }
+.trow .l1 { display: flex; align-items: center; gap: 6px; }
+.trow .nm { font-size: 12.8px; font-weight: 650; letter-spacing: -.008em; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; }
+.trow .tm { margin-left: auto; font-size: 11px; color: var(--ink-3); white-space: nowrap;
+            font-variant-numeric: tabular-nums; }
+.trow .sj { margin-top: 2px; font-size: 12.5px; color: var(--ink-2); white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; }
+.trow .as { margin-top: 3px; font-size: 12px; color: var(--ink-3); display: -webkit-box;
+            -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pdot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.pdot.p1 { background: var(--r); } .pdot.p2 { background: var(--a); }
+.pdot.p3 { background: var(--b); } .pdot.p4 { background: var(--line-2); }
+
+.md-pane { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+           box-shadow: var(--sh1); padding: 18px 20px 20px; }
+.md-pane .ph { display: flex; align-items: flex-start; gap: 11px; padding-bottom: 13px;
+               border-bottom: 1px solid var(--line); }
+.md-pane .ph .sj { font-size: 15.5px; font-weight: 680; letter-spacing: -.018em; }
+.md-pane .ph .fr { margin-top: 3px; font-size: 12.5px; color: var(--ink-3); }
+.md-pane .tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 13px 0 0; }
+.md-pane h4 { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+              color: var(--ink-3); margin: 16px 0 5px; }
+.md-pane .quote { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+                  padding: 12px 14px; font-size: 13px; line-height: 1.62; white-space: pre-wrap; }
+.md-pane .rd { font-size: 13.2px; line-height: 1.65; color: var(--ink-2); }
+.md-pane .rd b { color: var(--ink); font-weight: 650; }
+.draft { border: 1px solid var(--accent-line); background: #fbfbff; border-radius: 10px; overflow: hidden; }
+.draft-h { display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+           background: var(--accent-soft); border-bottom: 1px solid var(--accent-line); }
+.draft-h .t { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+              color: var(--accent); }
+.draft-b { padding: 13px 14px; font-size: 13px; line-height: 1.68; white-space: pre-wrap; }
+.flaglist { margin: 0 0 0 16px; font-size: 12.8px; color: var(--ink-2); }
+.flaglist li { margin-top: 3px; }
+
+/* ============================ timeline (Day) ============================ */
+.tl { position: relative; padding-left: 74px; }
+.tl::before { content: ""; position: absolute; left: 66px; top: 6px; bottom: 6px; width: 2px;
+              background: var(--line); }
+.slot { position: relative; margin-bottom: 12px; }
+.slot .clock { position: absolute; left: -74px; top: 12px; width: 56px; text-align: right;
+               font-size: 12px; font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.slot .clock .dur { display: block; font-size: 10.5px; font-weight: 500; color: var(--ink-3); margin-top: 1px; }
+.slot::before { content: ""; position: absolute; left: -12px; top: 17px; width: 9px; height: 9px;
+                border-radius: 50%; background: var(--surface); border: 2px solid var(--line-2); z-index: 1; }
+.slot.t-r::before { border-color: var(--r); } .slot.t-a::before { border-color: var(--a); }
+.slot.t-b::before { border-color: var(--b); } .slot.t-g::before { border-color: var(--g); }
+.slot.t-ac::before { border-color: var(--accent); }
+.mcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 13px 15px 12px; scroll-margin-top: 110px; }
+.mcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.mcard .ttl { font-size: 14px; font-weight: 670; letter-spacing: -.015em; }
+.mcard .obj { margin-top: 5px; font-size: 12.8px; color: var(--ink-2); }
+.mcard .who { margin-top: 9px; display: flex; align-items: center; gap: 7px; }
+.mcard .foot { margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--line);
+               display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+
+/* ============================ people grid (Network) ============================ */
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 11px; }
+.pcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 13px 14px 12px; scroll-margin-top: 110px; }
+.pcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.pcard .hd { display: flex; align-items: center; gap: 9px; }
+.pcard .nm { font-size: 13.5px; font-weight: 660; letter-spacing: -.012em; }
+.pcard .ti { font-size: 12px; color: var(--ink-3); margin-top: 1px; }
+.pcard .note { margin-top: 10px; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+.pcard .cad { margin-top: 11px; }
+.pcard .cadrow { display: flex; align-items: center; justify-content: space-between;
+                 font-size: 11.5px; color: var(--ink-3); margin-bottom: 4px; }
+.pcard .foot { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--line);
+               display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+/* ============================ doc view (Diligence) ============================ */
+.doc { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 14px; align-items: start; }
+.doc-side { position: sticky; top: 82px; }
+.doc-side .ttl { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+                 color: var(--ink-3); padding: 0 4px 7px; }
+.doc-side a { display: block; padding: 7px 10px; border-radius: 8px; font-size: 12.8px;
+              font-weight: 550; color: var(--ink-2); border-left: 2px solid transparent; }
+.doc-side a:hover { background: var(--surface-3); color: var(--ink); }
+.doc-side a.on { background: var(--accent-soft); color: var(--accent); border-left-color: var(--accent); }
+.doc-side a .s { display: block; font-size: 11px; font-weight: 500; color: var(--ink-3); margin-top: 1px; }
+.doc-side a.on .s { color: var(--accent); opacity: .75; }
+.brief { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 22px 26px 24px; }
+.brief .bh { padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+.brief .bh .co { font-size: 19px; font-weight: 700; letter-spacing: -.028em; }
+.brief .bh .hl { margin-top: 6px; font-size: 13.8px; color: var(--ink-2); line-height: 1.55; max-width: 70ch; }
+.brief .bh .meta { margin-top: 11px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+.brief section { margin-top: 20px; }
+.brief section h3 { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                    color: var(--ink-3); margin-bottom: 7px; }
+.brief section p { font-size: 13.5px; line-height: 1.68; max-width: 72ch; }
+.brief section p + p { margin-top: 9px; }
+.brief section ul { margin-left: 18px; font-size: 13.4px; line-height: 1.6; max-width: 72ch; }
+.brief section li { margin-top: 5px; }
+.qbox { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; }
+.srcs { font-size: 12.3px; color: var(--ink-3); line-height: 1.6; }
+.srcs li { margin-top: 3px; }
+
+/* ============================ agent cards (Build) ============================ */
+.agrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.acard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 15px 16px 14px; scroll-margin-top: 110px; }
+.acard .hd { display: flex; align-items: center; gap: 9px; }
+.acard .nm { font-size: 13.8px; font-weight: 670; letter-spacing: -.014em; }
+.acard .does { margin-top: 9px; font-size: 12.8px; color: var(--ink-2); line-height: 1.58; }
+.acard .sch { margin-top: 11px; font-size: 12px; color: var(--ink-3); display: flex; gap: 6px;
+              align-items: baseline; }
+.acard .sch b { color: var(--ink-2); font-weight: 600; }
+.acard .io { margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.2px;
+             color: var(--ink-3); line-height: 1.6; }
+.acard .io b { color: var(--ink-2); font-weight: 600; }
+.flow { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding: 4px 0 10px; }
+.fstep { flex: 1; min-width: 132px; background: var(--surface); border: 1px solid var(--line);
+         border-radius: 10px; padding: 11px 12px; box-shadow: var(--sh1); }
+.fstep .n { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--accent); }
+.fstep .t { margin-top: 4px; font-size: 12.8px; font-weight: 620; }
+.fstep .d { margin-top: 3px; font-size: 11.8px; color: var(--ink-3); line-height: 1.5; }
+.farrow { flex: none; width: 26px; display: grid; place-items: center; color: var(--line-2);
+          font-size: 15px; }
+
+/* ============================ disclosure ============================ */
+.dtl { display: none; }
+.dtl.open { display: block; }
+.dtl-in { margin-top: 10px; padding: 12px 13px; background: var(--surface-2);
+          border: 1px solid var(--line); border-radius: 10px; font-size: 12.8px; line-height: 1.62; }
+.dtl-in h4 { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+             color: var(--ink-3); margin-bottom: 4px; }
+.dtl-in h4:not(:first-child) { margin-top: 12px; }
+.dtl-in ul { margin: 0 0 0 16px; }
+.dtl-in li { margin-top: 3px; }
+.dtl-in p + p { margin-top: 7px; }
+.dtl-in b { font-weight: 650; }
+
+/* ============================ footer ============================ */
+.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
+        font-size: 11.5px; color: var(--ink-3); line-height: 1.7; max-width: 96ch; }
+
+/* ============================ responsive ============================ */
+@media (max-width: 1180px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) {
+  :root { --side: 0px; }
+  .side { position: static; width: 100%; flex-direction: column; }
+  .shell { flex-direction: column; }
+  .side-nav { display: flex; gap: 4px; overflow-x: auto; padding: 8px 10px; }
+  .side-nav .grp { display: none; }
+  .side-nav a { white-space: nowrap; margin-bottom: 0; }
+  .side-nav a .cnt { display: none; }
+  .side-foot { display: none; }
+  .main { margin-left: 0; }
+  .topbar { padding: 11px 14px; }
+  .content { padding: 16px 14px 48px; }
+  .stamp { display: none; }
+  .kpis { grid-template-columns: repeat(2, 1fr); gap: 9px; }
+  .kpi .v { font-size: 23px; }
+  .srch { margin-left: 0; width: 100%; }
+  .srch input { width: 100%; }
+  .board { grid-auto-flow: row; grid-auto-columns: auto; }
+  .md, .doc { grid-template-columns: minmax(0, 1fr); }
+  .doc-side { position: static; }
+  .doc-side a { display: inline-block; }
+  .md-list { max-height: 400px; overflow-y: auto; }
+  .md-pane { padding: 15px 15px 17px; }
+  .brief { padding: 17px 16px 19px; }
+  .tl { padding-left: 0; }
+  .tl::before { display: none; }
+  .slot::before { display: none; }
+  .slot .clock { position: static; width: auto; text-align: left; margin-bottom: 5px; }
+  .slot .clock .dur { display: inline; margin-left: 6px; }
+}
+</style>
+</head>
+<body data-view="dealflow">
+<div class="shell">
+<aside class="side">
+  <div class="side-top">
+    <div class="mark">
+      <div class="mark-badge">CS</div>
+      <div>
+        <div class="mark-name">Chief of Staff</div>
+        <div class="mark-sub">First Round</div>
+      </div>
+    </div>
+  </div>
+  <nav class="side-nav">
+    <div class="grp">Today</div>
+    <a class="" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v4h-7zM14 11h7v10h-7zM3 14h7v7H3z"/></svg><span>Brief</span><span class="cnt">4</span></a><a class="on" href="dealflow.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4v15H4zM10 4h4v9h-4zM16 4h4v12h-4z"/></svg><span>Deal Flow</span><span class="cnt">4</span></a><a class="" href="diligence.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3H7a1 1 0 00-1 1v16a1 1 0 001 1h10a1 1 0 001-1V8zM13 3v5h5M9 13h6M9 17h4"/></svg><span>Diligence</span><span class="cnt">3</span></a><a class="" href="inbox.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h4l1.5 3h5L16 13h4M4 13l2.4-8h11.2L20 13v6H4z"/></svg><span>Inbox</span><span class="cnt">8</span></a><a class="" href="day.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M9 3v4M15 3v4M8 14h3"/></svg><span>Day</span><span class="cnt">6</span></a><a class="" href="network.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 10a3 3 0 100-6 3 3 0 000 6zM3.5 20a5.5 5.5 0 0111 0M17.5 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM16.5 20h4a4 4 0 00-3-3.87"/></svg><span>Network</span><span class="cnt">2</span></a><a class="" href="projects.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM9 11l2.2 2.2L16 8.5M9 16h6"/></svg><span>Projects</span><span class="cnt">2</span></a><a class="" href="build.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 100-6 3 3 0 000 6zM12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg><span>Build</span><span class="cnt">7</span></a>
+  </nav>
+  <div class="side-foot">
+    <div class="who-chip">
+      <div class="av lg" style="background:#3f3cd4">JK</div>
+      <div>
+        <div class="nm">Josh Kopelman</div>
+        <div class="rl">Partner · First Round</div>
+      </div>
+    </div>
+  </div>
+</aside>
+<div class="main">
+  <header class="topbar">
+    <div>
+      <h1>Deal Flow</h1>
+      <div class="sub">Everything inbound, scored against the thesis and ranked by what it costs to be slow</div>
+    </div>
+    <div class="right">
+      <span class="demo-chip">Demo data</span>
+      <span class="stamp">Tue Jul 28, 06:40 ET</span>
+    </div>
+  </header>
+  <main class="content">
+<div class="kpis"><div class="kpi t-ac"><div class="k">Live in pipeline</div><div class="v">4</div><div class="s">not yet passed or committed</div></div><div class="kpi t-r"><div class="k">Waiting on you</div><div class="v">1</div><div class="s">blocked on a partner call</div></div><div class="kpi t-b"><div class="k">New in 14 days</div><div class="v">3</div><div class="s">since Jul 14</div></div><div class="kpi t-g"><div class="k">Warm-sourced</div><div class="v">60%</div><div class="s">3 of 5 came through the network</div></div></div><div style="margin-top:14px"><div class="callout"><div class="h">Waiting on you</div><div style="font-size:14.5px;font-weight:650;letter-spacing:-.015em">Lead Veriform&#x27;s seed at $22M post, or co-lead and halve the position?</div><p>Founder quality carries this, but $22M post on $40K MRR only works if compliance-for-SMB is a $1B category rather than a $200M one. Co-leading buys the position at half the concentration risk, and Dana has already said she would take the other half.</p><div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="tag t-ac">Recommend · Co-lead with Cardinal Street</span><span class="tag t-r">By Jul 30</span><a class="lnk" href="dealflow.html#deal_veriform">Veriform in pipeline</a></div><div style="margin-top:8px;font-size:12.5px;color:var(--ink-2)"><b>Cost of delay.</b> Sasha has a competing term sheet expiring Thursday. Silence past Wednesday reads as a pass.</div></div></div><div class="blk"><div class="blk-h"><h2>Pipeline</h2><span class="n">5</span><span class="note">Sorted by score inside each stage</span></div><div class="bar"><div class="seg"><button type="button" class="active" data-f="all">All<span class="n">5</span></button><button type="button" class="" data-f="open">Live<span class="n">4</span></button><button type="button" class="" data-f="decide">Needs you<span class="n">1</span></button><button type="button" class="" data-f="warm-intro">Warm intro<span class="n">1</span></button><button type="button" class="" data-f="inbound-cold">Cold<span class="n">2</span></button></div><div class="srch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" placeholder="Search companies, sectors, notes" aria-label="Search companies, sectors, notes"></div></div><div class="board" data-filterable><div class="col" data-group="screening"><div class="col-h"><span class="dot" style="background:var(--b)"></span><span class="nm">Screening</span><span class="n">1</span></div><div class="col-list"><article class="dcard" id="deal_pendle" data-search="pendle health health / admin prior-authorisation paperwork handled end to end for small specialty practices. real pain, credible founder, but the go-to-market is one practice at a time and there is no evidence yet that it compounds. elena vos" data-f="open inbound-cold"><div class="top"><span class="tag t-n">Cold</span><span style="margin-left:auto;font-size:11.5px;color:var(--ink-3)">3d ago</span></div><div class="nm">Pendle Health</div><div class="ol">Prior-authorisation paperwork handled end to end for small specialty practices.</div><div class="mrow"><span class="rnd">$2.5M seed · $14M post</span></div><div class="mrow">Health / Admin · Austin, TX</div><div class="sc"><span class="meter t-n"><i style="width:50%"></i></span><span class="v">5/10</span></div><div class="foot"><span class="avstack"><span class="av sm" style="background:#6b21a8" title="Elena Vos">EV</span></span><button type="button" class="btn" data-toggle="deal_pendle_why" aria-expanded="false" aria-controls="deal_pendle_why">Why</button></div><div class="dtl" id="deal_pendle_why"><div class="dtl-in"><h4>Read</h4><p>Real pain, credible founder, but the go-to-market is one practice at a time and there is no evidence yet that it compounds.</p><h4>Score</h4><ul><li>Founder 6/10</li><li>Market 7/10</li><li>Timing 5/10</li><li>Fit 4/10</li></ul><h4>Next</h4><p>30-minute screen booked for Thursday. Low prior; the call is to disprove the go-to-market concern, not to be convinced.</p></div></div></article></div></div><div class="col" data-group="diligence"><div class="col-h"><span class="dot" style="background:var(--a)"></span><span class="nm">Diligence</span><span class="n">2</span></div><div class="col-list"><article class="dcard" id="deal_argonaut" data-search="argonaut developer tools deterministic replay for agent systems — record a run, re-run it, find where it went wrong. timing is the strongest thing here and also the risk — everyone is funding agent tooling this quarter, which is exactly when this category gets overfunded. kwame asante" data-f="open portfolio-referral"><div class="top"><span class="tag t-g">Portfolio</span><span style="margin-left:auto;font-size:11.5px;color:var(--ink-3)">2d ago</span></div><div class="nm">Argonaut</div><div class="ol">Deterministic replay for agent systems — record a run, re-run it, find where it went wrong.</div><div class="mrow"><span class="rnd">$3.5M seed · $18M post</span></div><div class="mrow">Developer Tools · New York, NY via <a class="lnk" href="network.html#per_jonah_reyes">Jonah Reyes</a></div><div class="sc"><span class="meter t-a"><i style="width:70%"></i></span><span class="v">7/10</span></div><div class="foot"><span class="avstack"><span class="av sm" style="background:#0f766e" title="Kwame Asante">KA</span></span><button type="button" class="btn" data-toggle="deal_argonaut_why" aria-expanded="false" aria-controls="deal_argonaut_why">Why</button><a class="lnk" href="diligence.html#co_argonaut">Brief</a></div><div class="dtl" id="deal_argonaut_why"><div class="dtl-in"><h4>Read</h4><p>Timing is the strongest thing here and also the risk — everyone is funding agent tooling this quarter, which is exactly when this category gets overfunded.</p><h4>Score</h4><ul><li>Founder 8/10</li><li>Market 8/10</li><li>Timing 9/10</li><li>Fit 5/10</li></ul><h4>Next</h4><p>Technical reference with two design partners, Wednesday.</p></div></div></article><article class="dcard" id="deal_tallow" data-search="tallow vertical saas margin analytics for independent restaurant groups — reads the pos, prices the menu. cold inbound that scored high enough to work. solo technical founder, unglamorous market, real customers paying real money. rina devarakonda" data-f="open inbound-cold"><div class="top"><span class="tag t-n">Cold</span><span style="margin-left:auto;font-size:11.5px;color:var(--ink-3)">4d ago</span></div><div class="nm">Tallow</div><div class="ol">Margin analytics for independent restaurant groups — reads the POS, prices the menu.</div><div class="mrow"><span class="rnd">$1.2M pre-seed · $9M post</span></div><div class="mrow">Vertical SaaS · Philadelphia, PA</div><div class="sc"><span class="meter t-a"><i style="width:60%"></i></span><span class="v">6/10</span></div><div class="foot"><span class="avstack"><span class="av sm" style="background:#b91c5c" title="Rina Devarakonda">RD</span></span><button type="button" class="btn" data-toggle="deal_tallow_why" aria-expanded="false" aria-controls="deal_tallow_why">Why</button><a class="lnk" href="diligence.html#co_tallow">Brief</a></div><div class="dtl" id="deal_tallow_why"><div class="dtl-in"><h4>Read</h4><p>Cold inbound that scored high enough to work. Solo technical founder, unglamorous market, real customers paying real money.</p><h4>Score</h4><ul><li>Founder 8/10</li><li>Market 4/10</li><li>Timing 6/10</li><li>Fit 7/10</li></ul><h4>Next</h4><p>Customer reference calls Wednesday. Those are the decision, not the deck.</p></div></div></article></div></div><div class="col" data-group="partner-review"><div class="col-h"><span class="dot" style="background:var(--r)"></span><span class="nm">Partner review</span><span class="n">1</span></div><div class="col-list"><article class="dcard" id="deal_veriform" data-search="veriform security / compliance continuous evidence collection for soc 2 and iso 27001, built for companies under 50 people. second-time founder selling into a market she already sold to once. the wedge is real; the ceiling is the question. sasha lin marcus oyelaran" data-f="open warm-intro decide"><div class="top"><span class="tag t-g">Warm intro</span><span class="tag t-r dot">Needs you</span><span style="margin-left:auto;font-size:11.5px;color:var(--ink-3)">yesterday</span></div><div class="nm">Veriform</div><div class="ol">Continuous evidence collection for SOC 2 and ISO 27001, built for companies under 50 people.</div><div class="mrow"><span class="rnd">$4M seed · $22M post</span></div><div class="mrow">Security / Compliance · Brooklyn, NY via <a class="lnk" href="network.html#per_dana_ovadia">Dana Ovadia</a></div><div class="sc"><span class="meter t-g"><i style="width:80%"></i></span><span class="v">8/10</span></div><div class="foot"><span class="avstack"><span class="av sm" style="background:#9a5b06" title="Sasha Lin">SL</span><span class="av sm" style="background:#0e7490" title="Marcus Oyelaran">MO</span></span><button type="button" class="btn" data-toggle="deal_veriform_why" aria-expanded="false" aria-controls="deal_veriform_why">Why</button><a class="lnk" href="diligence.html#co_veriform">Brief</a></div><div class="dtl" id="deal_veriform_why"><div class="dtl-in"><h4>Read</h4><p>Second-time founder selling into a market she already sold to once. The wedge is real; the ceiling is the question.</p><h4>Score</h4><ul><li>Founder 9/10</li><li>Market 6/10</li><li>Timing 8/10</li><li>Fit 9/10</li></ul><h4>Next</h4><p>Partner review today. Decision owed before Thursday.</p></div></div></article></div></div><div class="col" data-group="passed"><div class="col-h"><span class="dot" style="background:var(--line-2)"></span><span class="nm">Passed</span><span class="n">1</span></div><div class="col-list"><article class="dcard" id="deal_halden" data-search="halden robotics robotics retrofit autonomy kits for existing warehouse forklifts. good team, wrong shape for us. capital intensity and an 18-month hardware cycle put it outside where we can be useful. theo brandt" data-f="closed cofund"><div class="top"><span class="tag t-b">Co-investor</span><span style="margin-left:auto;font-size:11.5px;color:var(--ink-3)">1w ago</span></div><div class="nm">Halden Robotics</div><div class="ol">Retrofit autonomy kits for existing warehouse forklifts.</div><div class="mrow"><span class="rnd">$6M seed · $30M post</span></div><div class="mrow">Robotics · Pittsburgh, PA via <a class="lnk" href="network.html#per_dana_ovadia">Dana Ovadia</a></div><div class="sc"><span class="meter t-n"><i style="width:40%"></i></span><span class="v">4/10</span></div><div class="foot"><span class="avstack"><span class="av sm" style="background:#9a5b06" title="Theo Brandt">TB</span></span><button type="button" class="btn" data-toggle="deal_halden_why" aria-expanded="false" aria-controls="deal_halden_why">Why</button></div><div class="dtl" id="deal_halden_why"><div class="dtl-in"><h4>Read</h4><p>Good team, wrong shape for us. Capital intensity and an 18-month hardware cycle put it outside where we can be useful.</p><h4>Score</h4><ul><li>Founder 7/10</li><li>Market 7/10</li><li>Timing 3/10</li><li>Fit 2/10</li></ul><h4>Next</h4><p>Passed Jul 20 with a written reason and two intros to hardware-native funds.</p></div></div></article></div></div></div><div class="noresult">Nothing matches that filter.</div></div>
+    <footer class="foot">
+      Synthetic demonstration data. Every company, founder, message, meeting, and project on this site is invented for the demo. No First Round portfolio company, employee, or communication appears anywhere in it.<br>
+      Built as a work sample for the Chief of Staff role. Every page is generated from the
+      JSON in <code>data/</code> by <code>make.py</code> — run <code>python make.py --check</code>
+      to confirm the output regenerates byte for byte.
+    </footer>
+  </main>
+</div>
+</div>
+<script>
+(function () {
+  'use strict';
+  // Each feature initialises independently: one failure cannot blank a page.
+  function safe(fn) { try { fn(); } catch (e) {} }
+  var SLUG = document.body.getAttribute('data-view') || 'x';
+
+  // --- segmented filter + search --------------------------------------------
+  safe(function () {
+    var scope = document.querySelector('[data-filterable]');
+    if (!scope) return;
+    var items = [].slice.call(scope.querySelectorAll('[data-search]'));
+    if (!items.length) return;
+    var segs = [].slice.call(document.querySelectorAll('[data-f]'));
+    var box = document.querySelector('.srch input');
+    var none = document.querySelector('.noresult');
+    var groups = [].slice.call(scope.querySelectorAll('[data-group]'));
+    var KEY = 'frc:' + SLUG + ':filter';
+    var st = { f: 'all', q: '' };
+
+    function apply() {
+      var shown = 0;
+      items.forEach(function (el) {
+        var okF = st.f === 'all' || (el.dataset.f || '').split(' ').indexOf(st.f) !== -1;
+        var okQ = !st.q || el.dataset.search.indexOf(st.q) !== -1;
+        var ok = okF && okQ;
+        el.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+      // hide a board column / section that has nothing left in it
+      groups.forEach(function (g) {
+        var live = [].slice.call(g.querySelectorAll('[data-search]'))
+          .filter(function (e) { return e.style.display !== 'none'; });
+        g.style.display = live.length ? '' : 'none';
+      });
+      if (none) none.style.display = shown ? 'none' : 'block';
+    }
+    function select(v) {
+      st.f = v;
+      segs.forEach(function (s) { s.classList.toggle('active', s.dataset.f === v); });
+      apply();
+    }
+    segs.forEach(function (s) {
+      s.addEventListener('click', function () {
+        select(s.dataset.f);
+        try { localStorage.setItem(KEY, s.dataset.f); } catch (e) {}
+      });
+    });
+    if (box) box.addEventListener('input', function () { st.q = box.value.trim().toLowerCase(); apply(); });
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (saved && segs.some(function (s) { return s.dataset.f === saved; })) select(saved);
+    else apply();
+  });
+
+  // --- disclosure ------------------------------------------------------------
+  safe(function () {
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-toggle]');
+      if (!t) return;
+      var p = document.getElementById(t.dataset.toggle);
+      if (!p) return;
+      var open = p.classList.toggle('open');
+      t.classList.toggle('on', open);
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // --- master / detail (Inbox, Diligence) ------------------------------------
+  safe(function () {
+    var panes = document.querySelector('[data-md]');
+    if (!panes) return;
+    var rows = [].slice.call(panes.querySelectorAll('[data-open]'));
+    var details = [].slice.call(panes.querySelectorAll('[data-pane]'));
+    if (!rows.length) return;
+
+    function show(id, push) {
+      var found = false;
+      details.forEach(function (d) {
+        var on = d.dataset.pane === id;
+        d.style.display = on ? '' : 'none';
+        if (on) found = true;
+      });
+      rows.forEach(function (r) { r.classList.toggle('sel', r.dataset.open === id); });
+      if (found && push) history.replaceState(null, '', '#' + id);
+      if (found && window.innerWidth <= 900) {
+        var pane = panes.querySelector('[data-pane="' + id + '"]');
+        if (pane) pane.scrollIntoView({ block: 'start' });
+      }
+      return found;
+    }
+    rows.forEach(function (r) {
+      r.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
+        show(r.dataset.open, true);
+      });
+    });
+    var start = location.hash.slice(1);
+    if (!start || !show(start, false)) show(rows[0].dataset.open, false);
+    window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+  });
+
+  // --- copy ------------------------------------------------------------------
+  safe(function () {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-copy]');
+      if (!b) return;
+      var src = document.getElementById(b.dataset.copy);
+      var txt = src ? src.innerText.trim() : '';
+      var flash = function () {
+        var old = b.innerHTML;
+        b.textContent = 'Copied';
+        setTimeout(function () { b.innerHTML = old; }, 1200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(flash, function () {});
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); flash(); } catch (err) {}
+      document.body.removeChild(ta);
+    });
+  });
+
+  // --- reveal a deep-linked card --------------------------------------------
+  safe(function () {
+    function reveal() {
+      var id = location.hash.slice(1);
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = '';
+      var t = el.querySelector('[data-toggle]');
+      if (t && !t.classList.contains('on')) t.click();
+    }
+    reveal();
+    window.addEventListener('hashchange', reveal);
+  });
+})();
+</script>
+</body>
+</html>

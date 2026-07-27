@@ -1,0 +1,82 @@
+[
+  {
+    "id": "co_veriform",
+    "name": "Veriform",
+    "one_liner": "Continuous evidence collection for SOC 2 and ISO 27001, built for companies under 50 people.",
+    "sector": "Security / Compliance",
+    "stage": "Seed",
+    "hq": "Brooklyn, NY",
+    "founded": "2025",
+    "team": ["per_sasha_lin", "per_marcus_oyelaran"]
+  },
+  {
+    "id": "co_tallow",
+    "name": "Tallow",
+    "one_liner": "Margin analytics for independent restaurant groups — reads the POS, prices the menu.",
+    "sector": "Vertical SaaS",
+    "stage": "Pre-seed",
+    "hq": "Philadelphia, PA",
+    "founded": "2026",
+    "team": ["per_rina_devarakonda"]
+  },
+  {
+    "id": "co_halden",
+    "name": "Halden Robotics",
+    "one_liner": "Retrofit autonomy kits for existing warehouse forklifts.",
+    "sector": "Robotics",
+    "stage": "Seed",
+    "hq": "Pittsburgh, PA",
+    "founded": "2024",
+    "team": ["per_theo_brandt"]
+  },
+  {
+    "id": "co_pendle",
+    "name": "Pendle Health",
+    "one_liner": "Prior-authorisation paperwork handled end to end for small specialty practices.",
+    "sector": "Health / Admin",
+    "stage": "Seed",
+    "hq": "Austin, TX",
+    "founded": "2025",
+    "team": ["per_elena_vos"]
+  },
+  {
+    "id": "co_argonaut",
+    "name": "Argonaut",
+    "one_liner": "Deterministic replay for agent systems — record a run, re-run it, find where it went wrong.",
+    "sector": "Developer Tools",
+    "stage": "Seed",
+    "hq": "New York, NY",
+    "founded": "2026",
+    "team": ["per_kwame_asante"]
+  },
+  {
+    "id": "co_stitchwork",
+    "name": "Stitchwork",
+    "one_liner": "Production planning for small apparel manufacturers.",
+    "sector": "Vertical SaaS",
+    "stage": "Series A",
+    "hq": "Los Angeles, CA",
+    "founded": "2022",
+    "team": ["per_amara_king"]
+  },
+  {
+    "id": "co_belmont",
+    "name": "Belmont Data",
+    "one_liner": "Warehouse-native customer data plumbing for mid-market retail.",
+    "sector": "Data Infrastructure",
+    "stage": "Series A",
+    "hq": "Boston, MA",
+    "founded": "2021",
+    "team": ["per_jonah_reyes"]
+  },
+  {
+    "id": "co_kettle",
+    "name": "Kettle",
+    "one_liner": "Shift scheduling and payroll for independent coffee groups.",
+    "sector": "Vertical SaaS",
+    "stage": "Seed",
+    "hq": "Portland, OR",
+    "founded": "2023",
+    "team": ["per_priya_raman"]
+  }
+]

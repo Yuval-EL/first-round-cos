@@ -1,0 +1,69 @@
+[
+  {
+    "id": "prj_annual_meeting",
+    "name": "LP annual meeting — October",
+    "status": "At risk",
+    "owner": "per_cos",
+    "due": "2026-10-19",
+    "summary": "Dates, venue, materials, and the Fund V performance narrative for the annual LP meeting.",
+    "blocked_on": "principal",
+    "next_step": "The Q2 pacing answer needs a partner's own words before anything else in this project can move.",
+    "people": ["per_beth_calloway", "per_cos"],
+    "needs_decision": null
+  },
+  {
+    "id": "prj_pass_notes",
+    "name": "Written pass notes for every declined company",
+    "status": "On track",
+    "owner": "per_cos",
+    "due": "2026-08-31",
+    "summary": "Every pass gets a real reason and, where possible, two intros to funds that fit better. Started as an experiment in April; now standard.",
+    "blocked_on": null,
+    "next_step": "31 passes written since April. Nine produced a reply, two produced a referral back. per_theo_brandt is the clearest case — passed on Jul 20, and he has already promised us first look at the next one.",
+    "people": ["per_theo_brandt", "per_cos"],
+    "needs_decision": null
+  },
+  {
+    "id": "prj_ai_ops",
+    "name": "Internal AI operations — agent rollout",
+    "status": "On track",
+    "owner": "per_cos",
+    "due": "2026-09-15",
+    "summary": "The seven agents behind this system: what they own, what they are allowed to do without a human, and what has to escalate. Rolled out one module at a time rather than all at once.",
+    "blocked_on": null,
+    "next_step": "Six of seven agents are live. The seventh, agt_diligence, still runs with a human reading every brief before it is shown — that gate comes off only once thirty briefs have been checked for fabricated numbers.",
+    "people": ["per_cos"],
+    "needs_decision": {
+      "question": "Should the diligence agent's briefs be visible before a human has read them?",
+      "options": ["Keep the human gate", "Auto-publish with a confidence label", "Auto-publish only 'high' confidence"],
+      "recommendation": "Keep the human gate",
+      "why": "The failure mode is not a badly written brief, it is a confidently wrong number that gets repeated in a partner meeting. Twenty-two briefs have been checked so far and two contained a metric that could not be traced to a source. Two out of twenty-two is too high to remove the gate.",
+      "deadline": "2026-09-15",
+      "cost_of_delay": "None urgent. The gate costs about fifteen minutes per brief and it is currently buying more than it costs."
+    }
+  },
+  {
+    "id": "prj_speaking",
+    "name": "Q4 speaking and events",
+    "status": "Blocked",
+    "owner": "per_ea",
+    "due": "2026-08-15",
+    "summary": "Which of eleven Q4 speaking invitations to accept, and protecting the weeks around them.",
+    "blocked_on": "principal",
+    "next_step": "Eleven invitations, two answered. The November block is the binding constraint — per_lassiter's summit wants a full day on Nov 12 and there are already two travel commitments that week.",
+    "people": ["per_lassiter", "per_ea"],
+    "needs_decision": null
+  },
+  {
+    "id": "prj_founder_dinner",
+    "name": "Portfolio founder dinner — Philadelphia, September",
+    "status": "On track",
+    "owner": "per_ea",
+    "due": "2026-09-24",
+    "summary": "Twenty-four founders, one evening, no programming. The point is that they meet each other rather than us.",
+    "blocked_on": null,
+    "next_step": "Venue booked, 19 of 24 confirmed. per_amara_king and per_jonah_reyes have not replied — both are mid-raise, so a personal note works better than another calendar invite.",
+    "people": ["per_amara_king", "per_jonah_reyes", "per_ea"],
+    "needs_decision": null
+  }
+]

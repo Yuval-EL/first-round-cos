@@ -1,0 +1,277 @@
+[
+  {
+    "id": "per_principal",
+    "name": "Josh Kopelman",
+    "title": "Partner",
+    "org": null,
+    "email": "partner@firm.example",
+    "location": "Philadelphia, PA",
+    "tags": ["internal", "principal"]
+  },
+  {
+    "id": "per_cos",
+    "name": "Chief of Staff",
+    "title": "Operates this system",
+    "org": null,
+    "email": "cos@firm.example",
+    "location": "Philadelphia, PA",
+    "tags": ["internal", "role"]
+  },
+  {
+    "id": "per_ea",
+    "name": "Executive Assistant",
+    "title": "Scheduling and contact management",
+    "org": null,
+    "email": "ea@firm.example",
+    "location": "Philadelphia, PA",
+    "tags": ["internal", "role"]
+  },
+
+  {
+    "id": "per_sasha_lin",
+    "name": "Sasha Lin",
+    "title": "Co-founder & CEO",
+    "org": "co_veriform",
+    "email": "sasha@veriform.example",
+    "location": "Brooklyn, NY",
+    "tags": ["founder", "pipeline"],
+    "rel": {
+      "tier": "active",
+      "how_we_met": "Introduced by per_dana_ovadia in Mar 2026",
+      "last_contact": "2026-07-27",
+      "last_contact_channel": "email",
+      "cadence_days": 14,
+      "owed_reply": true,
+      "intro_paths": [["per_dana_ovadia", "per_sasha_lin"]],
+      "note": "Second-time founder. Sold her last company to a compliance incumbent, then spent 19 months watching it fail the small end of the market. That is the whole thesis."
+    }
+  },
+  {
+    "id": "per_marcus_oyelaran",
+    "name": "Marcus Oyelaran",
+    "title": "Co-founder & CTO",
+    "org": "co_veriform",
+    "email": "marcus@veriform.example",
+    "location": "Brooklyn, NY",
+    "tags": ["founder", "technical"]
+  },
+  {
+    "id": "per_rina_devarakonda",
+    "name": "Rina Devarakonda",
+    "title": "Founder",
+    "org": "co_tallow",
+    "email": "rina@tallow.example",
+    "location": "Philadelphia, PA",
+    "tags": ["founder", "solo", "pipeline"],
+    "rel": {
+      "tier": "active",
+      "how_we_met": "Cold inbound, Jul 2026 — no intro, no warm path",
+      "last_contact": "2026-07-24",
+      "last_contact_channel": "call",
+      "cadence_days": 10,
+      "owed_reply": false,
+      "intro_paths": [],
+      "note": "Came in cold and scored anyway. Deck contained a slide honestly titled 'why this might be a small business', which is why she is in diligence."
+    }
+  },
+  {
+    "id": "per_theo_brandt",
+    "name": "Theo Brandt",
+    "title": "Co-founder & CEO",
+    "org": "co_halden",
+    "email": "theo@halden.example",
+    "location": "Pittsburgh, PA",
+    "tags": ["founder", "passed"],
+    "rel": {
+      "tier": "dormant",
+      "how_we_met": "Sent by per_dana_ovadia as a co-investment, May 2026",
+      "last_contact": "2026-07-20",
+      "last_contact_channel": "email",
+      "cadence_days": 120,
+      "owed_reply": false,
+      "intro_paths": [["per_dana_ovadia", "per_theo_brandt"]],
+      "note": "Passed Jul 20 on shape, not on quality. Worth a real relationship — he will raise again and the next one may fit."
+    }
+  },
+  {
+    "id": "per_elena_vos",
+    "name": "Elena Vos",
+    "title": "Founder & CEO",
+    "org": "co_pendle",
+    "email": "elena@pendle.example",
+    "location": "Austin, TX",
+    "tags": ["founder", "pipeline"]
+  },
+  {
+    "id": "per_kwame_asante",
+    "name": "Kwame Asante",
+    "title": "Founder",
+    "org": "co_argonaut",
+    "email": "kwame@argonaut.example",
+    "location": "New York, NY",
+    "tags": ["founder", "pipeline"]
+  },
+
+  {
+    "id": "per_amara_king",
+    "name": "Amara King",
+    "title": "Co-founder & CEO",
+    "org": "co_stitchwork",
+    "email": "amara@stitchwork.example",
+    "location": "Los Angeles, CA",
+    "tags": ["founder", "portfolio"],
+    "rel": {
+      "tier": "core",
+      "how_we_met": "Seed round, 2022. Four years in.",
+      "last_contact": "2026-07-26",
+      "last_contact_channel": "email",
+      "cadence_days": 30,
+      "owed_reply": true,
+      "intro_paths": [],
+      "note": "Raising a B. Asking for intros, which is the ask that actually costs something — worth being deliberate about which two names go out."
+    }
+  },
+  {
+    "id": "per_jonah_reyes",
+    "name": "Jonah Reyes",
+    "title": "Co-founder & CEO",
+    "org": "co_belmont",
+    "email": "jonah@belmont.example",
+    "location": "Boston, MA",
+    "tags": ["founder", "portfolio"],
+    "rel": {
+      "tier": "core",
+      "how_we_met": "Seed round, 2021",
+      "last_contact": "2026-06-11",
+      "last_contact_channel": "email",
+      "cadence_days": 45,
+      "owed_reply": false,
+      "intro_paths": [],
+      "note": "Quiet for seven weeks, which for Jonah is unusual — he normally writes monthly. Nothing is visibly wrong. That is exactly when it is worth a call."
+    }
+  },
+  {
+    "id": "per_priya_raman",
+    "name": "Priya Raman",
+    "title": "Founder & CEO",
+    "org": "co_kettle",
+    "email": "priya@kettle.example",
+    "location": "Portland, OR",
+    "tags": ["founder", "portfolio"],
+    "rel": {
+      "tier": "core",
+      "how_we_met": "Seed round, 2023",
+      "last_contact": "2026-07-27",
+      "last_contact_channel": "email",
+      "cadence_days": 21,
+      "owed_reply": true,
+      "intro_paths": [],
+      "note": "Wrote twice in five days after eleven quiet weeks. Both notes were about 'a quick question on the cap table.' Nobody asks that twice for a small reason."
+    }
+  },
+
+  {
+    "id": "per_dana_ovadia",
+    "name": "Dana Ovadia",
+    "title": "General Partner, Cardinal Street",
+    "org": null,
+    "email": "dana@cardinalst.example",
+    "location": "New York, NY",
+    "tags": ["investor", "co-investor"],
+    "rel": {
+      "tier": "core",
+      "how_we_met": "Co-invested in two seed rounds, 2023-2025",
+      "last_contact": "2026-07-24",
+      "last_contact_channel": "email",
+      "cadence_days": 30,
+      "owed_reply": false,
+      "intro_paths": [],
+      "note": "Highest-conversion intro source in the network: three deals sent in twelve months, two reached diligence. Sends few and sends well."
+    }
+  },
+  {
+    "id": "per_hiro_tanaka",
+    "name": "Hiro Tanaka",
+    "title": "Partner, Meridian Growth",
+    "org": null,
+    "email": "hiro@meridiangrowth.example",
+    "location": "San Francisco, CA",
+    "tags": ["investor", "series-a"],
+    "rel": {
+      "tier": "active",
+      "how_we_met": "Led the A in a shared portfolio company, 2024",
+      "last_contact": "2026-05-30",
+      "last_contact_channel": "email",
+      "cadence_days": 60,
+      "owed_reply": false,
+      "intro_paths": [],
+      "note": "The right first call for an apparel or manufacturing A. Slow to reply but has never passed on a referral without a reason."
+    }
+  },
+  {
+    "id": "per_beth_calloway",
+    "name": "Beth Calloway",
+    "title": "Director of Investments, Wexford Endowment",
+    "org": null,
+    "email": "bcalloway@wexfordendow.example",
+    "location": "Chicago, IL",
+    "tags": ["lp"],
+    "rel": {
+      "tier": "core",
+      "how_we_met": "LP since Fund III",
+      "last_contact": "2026-07-15",
+      "last_contact_channel": "email",
+      "cadence_days": 90,
+      "owed_reply": false,
+      "intro_paths": [],
+      "note": "Asks precise questions and remembers the answers. Annual meeting prep should start six weeks out, not three."
+    }
+  },
+  {
+    "id": "per_omar_haddad",
+    "name": "Omar Haddad",
+    "title": "Angel investor, former COO at a payments company",
+    "org": null,
+    "email": "omar@haddad.example",
+    "location": "New York, NY",
+    "tags": ["angel", "operator"],
+    "rel": {
+      "tier": "active",
+      "how_we_met": "Co-invested in a 2024 seed",
+      "last_contact": "2026-04-18",
+      "last_contact_channel": "email",
+      "cadence_days": 60,
+      "owed_reply": false,
+      "intro_paths": [],
+      "note": "Past cadence by more than six weeks. Useful specifically for first-sales-hire questions, which two portfolio companies currently have."
+    }
+  },
+
+  {
+    "id": "per_lassiter",
+    "name": "Grace Lassiter",
+    "title": "Programme Chair, Northeast Founders Summit",
+    "org": null,
+    "email": "grace@nefsummit.example",
+    "location": "Boston, MA",
+    "tags": ["events"]
+  },
+  {
+    "id": "per_vendor_rep",
+    "name": "Trent Alsop",
+    "title": "Enterprise Sales, DataBridge Analytics",
+    "org": null,
+    "email": "t.alsop@databridge-analytics.example",
+    "location": "Denver, CO",
+    "tags": ["vendor"]
+  },
+  {
+    "id": "per_student_ruiz",
+    "name": "Camila Ruiz",
+    "title": "MBA candidate",
+    "org": null,
+    "email": "cruiz@university.example",
+    "location": "Philadelphia, PA",
+    "tags": ["student"]
+  }
+]

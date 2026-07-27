@@ -1,0 +1,165 @@
+[
+  {
+    "id": "mtg_kettle",
+    "start": "2026-07-28T08:00:00-04:00",
+    "end": "2026-07-28T08:30:00-04:00",
+    "title": "Priya Raman — the cap table conversation",
+    "kind": "Portfolio",
+    "attendees": ["per_priya_raman"],
+    "about": ["co_kettle", "thr_kettle_cap"],
+    "prep": {
+      "objective": "Find out what is actually happening at Kettle. The stated agenda is not the agenda.",
+      "context": [
+        "Eleven weeks of silence, then two messages in five days, both at night, both calling it quick.",
+        "Seed round closed 2023. Last written update was May and it was thinner than usual.",
+        "She has never asked for a call about the cap table before."
+      ],
+      "asks": [
+        "How are you doing — before we get to the cap table.",
+        "Is this a co-founder conversation or a financing conversation?",
+        "What have you already decided, and what are you still deciding?"
+      ],
+      "watch_outs": [
+        "Do not fill the silence. She booked 20 minutes for something she did not want to write down; the useful part will come late.",
+        "Resist solving it in the meeting. The first call is for the real problem to surface."
+      ],
+      "open_threads": ["thr_kettle_cap"]
+    },
+    "needs_decision": null
+  },
+  {
+    "id": "mtg_partner_review",
+    "start": "2026-07-28T09:00:00-04:00",
+    "end": "2026-07-28T10:15:00-04:00",
+    "title": "Partner review — Veriform seed",
+    "kind": "Investment",
+    "attendees": ["per_cos"],
+    "about": ["deal_veriform", "co_veriform", "per_sasha_lin"],
+    "prep": {
+      "objective": "Decide lead, co-lead, or pass. Sasha needs an answer before Thursday and has been promised one by Wednesday.",
+      "context": [
+        "$4M at $22M post. $40K MRR, up 3.3x in seven months, zero churn on an eleven-month-old cohort.",
+        "Warm intro from per_dana_ovadia, who will take $750K of the round regardless of what we do.",
+        "The diligence brief lands at medium confidence — strong on founder, unresolved on market size."
+      ],
+      "asks": [
+        "Is compliance-for-SMB a $1B category or a $200M one? The valuation only works on the first answer.",
+        "Has any customer graduated to an incumbent at 200 employees yet?",
+        "If we co-lead rather than lead, do we still get the position we want at the A?"
+      ],
+      "watch_outs": [
+        "Founder quality is doing a lot of work in this memo. That is a real signal and also the most common way a seed fund talks itself into an overpriced round.",
+        "The competing term sheet creates urgency that is real for Sasha and should not become urgency for us."
+      ],
+      "open_threads": ["thr_veriform_ts"]
+    },
+    "needs_decision": null
+  },
+  {
+    "id": "mtg_stitchwork",
+    "start": "2026-07-28T10:30:00-04:00",
+    "end": "2026-07-28T11:00:00-04:00",
+    "title": "Amara King — Series B intro strategy",
+    "kind": "Portfolio",
+    "attendees": ["per_amara_king"],
+    "about": ["co_stitchwork", "thr_stitchwork_intros", "per_hiro_tanaka"],
+    "prep": {
+      "objective": "Agree which two of her nine target funds get a personal intro, and be honest about the other seven.",
+      "context": [
+        "Four years in, raising a B, running a timed process.",
+        "per_hiro_tanaka already replied unprompted that he is under-allocated in manufacturing software and open to looking.",
+        "She explicitly said 'one or none' is an acceptable answer, which makes the honest version easier."
+      ],
+      "asks": [
+        "Which two names would change the process most if they said yes?",
+        "What is the story you are telling about the last two quarters?",
+        "Who else has she already contacted directly — an intro on top of a cold email is worse than either alone."
+      ],
+      "watch_outs": [
+        "The generous-feeling move is to send all nine. It would spend credibility she does not get back and would not get her a single extra meeting.",
+        "She has been trying to hire a first sales lead since March. per_omar_haddad is the right call on that and costs nothing to offer — but offer it after the intro conversation, not instead of it."
+      ],
+      "open_threads": ["thr_stitchwork_intros", "thr_hiro_reply"]
+    },
+    "needs_decision": null
+  },
+  {
+    "id": "mtg_dana",
+    "start": "2026-07-28T14:00:00-04:00",
+    "end": "2026-07-28T14:30:00-04:00",
+    "title": "Dana Ovadia — round construction, and the new intro",
+    "kind": "Co-investor",
+    "attendees": ["per_dana_ovadia"],
+    "about": ["deal_veriform", "thr_dana_intro"],
+    "prep": {
+      "objective": "Establish whether Cardinal Street would genuinely co-lead Veriform, and on what terms. Secondary: hear about the new company before the intro arrives.",
+      "context": [
+        "Dana has sent three deals in twelve months and two reached diligence. That is the highest conversion in the network.",
+        "She has already committed $750K to Veriform independent of our decision.",
+        "A co-lead halves our concentration risk on the one deal where the memo is honestly split."
+      ],
+      "asks": [
+        "Would you co-lead at $22M, or is $750K your ceiling regardless?",
+        "What is your read on the market-size question — you know this space better than we do.",
+        "On the new one: is she running a process with a close date?"
+      ],
+      "watch_outs": [
+        "Do not signal that a co-lead is our preferred structure before hearing hers. If she wants the whole lead, that is useful information about her conviction."
+      ],
+      "open_threads": ["thr_dana_intro"]
+    },
+    "needs_decision": null
+  },
+  {
+    "id": "mtg_focus",
+    "start": "2026-07-28T15:00:00-04:00",
+    "end": "2026-07-28T16:00:00-04:00",
+    "title": "Focus block — Fund V pacing note for Wexford",
+    "kind": "Internal",
+    "attendees": ["per_cos"],
+    "about": ["per_beth_calloway", "prj_annual_meeting", "thr_lp_calloway"],
+    "prep": {
+      "objective": "Draft the written answer on Q2 pacing before the conversation, so the annual meeting is a discussion rather than a briefing.",
+      "context": [
+        "Beth asked why Q2 deployment was lighter than the prior two quarters, framed as 'no rush', which never means no rush from an LP.",
+        "The honest answer is that the slowdown was deliberate. That is a stronger answer than the number, but only if it comes with the list of what was passed on and why.",
+        "Q2 pass count and the reasons are already in the pipeline record."
+      ],
+      "asks": [],
+      "watch_outs": [
+        "This block is the only unprotected hour in the day and is the first thing that will get eaten if the morning runs long. It is also the only thing here with a real deadline that nobody is chasing."
+      ],
+      "open_threads": ["thr_lp_calloway"]
+    },
+    "needs_decision": null
+  },
+  {
+    "id": "mtg_databridge",
+    "start": "2026-07-28T16:30:00-04:00",
+    "end": "2026-07-28T17:00:00-04:00",
+    "title": "DataBridge Analytics — platform demo",
+    "kind": "Vendor",
+    "attendees": ["per_vendor_rep"],
+    "about": ["per_vendor_rep", "thr_vendor_blast"],
+    "prep": {
+      "objective": "None stated. This was booked through the website scheduling link, not agreed to.",
+      "context": [
+        "Same sender has now sent four unsolicited messages this quarter, the most recent with an unrendered merge tag in the subject line.",
+        "No one at the firm requested this demo."
+      ],
+      "asks": [],
+      "watch_outs": [
+        "Recommend declining and closing the public scheduling link. This is thirty minutes at the end of the most decision-heavy day of the week, taken by someone who does not know what the firm does."
+      ],
+      "open_threads": ["thr_vendor_blast"]
+    },
+    "needs_decision": {
+      "question": "Keep or kill the 16:30 vendor demo — and the public scheduling link that produced it?",
+      "options": ["Decline the meeting only", "Decline and restrict the scheduling link", "Keep it"],
+      "recommendation": "Decline and restrict the scheduling link",
+      "why": "The meeting is thirty minutes of a partner's most valuable day claimed by a cold vendor. Declining it once solves today; restricting the link stops it recurring, which is the only version of this that is worth your attention.",
+      "deadline": "2026-07-28",
+      "cost_of_delay": "It is today. Declining after 15:00 is worse than declining now."
+    }
+  }
+]

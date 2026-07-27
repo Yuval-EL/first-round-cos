@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inbox · Chief of Staff — synthetic demo</title>
+<meta name="description" content="Synthetic demonstration data. Every company, founder, message, meeting, and project on this site is invented for the demo. No First Round portfolio company, employee, or communication appears anywhere in it.">
+<meta name="robots" content="noindex">
+<style>
+:root {
+  --bg: #f4f5f8;
+  --surface: #ffffff;
+  --surface-2: #fafbfd;
+  --surface-3: #f1f3f7;
+  --line: #e5e8ee;
+  --line-2: #d3d8e2;
+  --ink: #10131c;
+  --ink-2: #565d70;
+  --ink-3: #8b93a6;
+  --accent: #4b48e0;
+  --accent-2: #6d6afc;
+  --accent-soft: #eeeeff;
+  --accent-line: #cdccfb;
+  --r: #e11d48; --r-soft: #fff1f3; --r-line: #fbcfd8;
+  --a: #c2560c; --a-soft: #fff5ec; --a-line: #fbd9bd;
+  --b: #1d63d8; --b-soft: #eef4ff; --b-line: #c6dbfd;
+  --g: #08795a; --g-soft: #eafaf4; --g-line: #b7e8d7;
+  --n: #6b7280; --n-soft: #f2f4f7; --n-line: #e2e6ed;
+  --nav-bg: #12141d;
+  --nav-bg-2: #191c27;
+  --nav-ink: #9aa1b4;
+  --nav-line: #262a38;
+  --sh1: 0 1px 2px rgba(16,19,28,.06);
+  --sh2: 0 4px 16px rgba(16,19,28,.09);
+  --sh3: 0 12px 34px rgba(16,19,28,.14);
+  --side: 232px;
+  --rad: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: Inter, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13.5px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+a { color: inherit; text-decoration: none; }
+svg { display: block; }
+::selection { background: var(--accent-soft); }
+
+/* ============================ shell ============================ */
+.shell { display: flex; min-height: 100vh; }
+
+.side {
+  width: var(--side); flex: none; background: var(--nav-bg); color: #fff;
+  position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column;
+  z-index: 40;
+}
+.side-top { padding: 16px 16px 12px; border-bottom: 1px solid var(--nav-line); }
+.mark { display: flex; align-items: center; gap: 9px; }
+.mark-badge {
+  width: 26px; height: 26px; border-radius: 8px; flex: none;
+  background: linear-gradient(145deg, var(--accent-2), var(--accent));
+  display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff;
+  box-shadow: 0 2px 8px rgba(75,72,224,.45);
+}
+.mark-name { font-size: 13.5px; font-weight: 650; letter-spacing: -.01em; color: #fff; }
+.mark-sub { font-size: 11px; color: var(--nav-ink); margin-top: 1px; }
+
+.side-nav { padding: 10px 10px; flex: 1; overflow-y: auto; }
+.side-nav .grp {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: #5d6479; padding: 12px 8px 6px;
+}
+.side-nav a {
+  display: flex; align-items: center; gap: 10px; padding: 7px 9px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--nav-ink); margin-bottom: 1px;
+}
+.side-nav a svg { width: 16px; height: 16px; flex: none; stroke: currentColor;
+                  stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.side-nav a:hover { background: var(--nav-bg-2); color: #e8eaf1; }
+.side-nav a.on { background: var(--accent); color: #fff; box-shadow: 0 2px 10px rgba(75,72,224,.4); }
+.side-nav a .cnt {
+  margin-left: auto; font-size: 11px; font-weight: 600; color: #6f778c;
+  font-variant-numeric: tabular-nums;
+}
+.side-nav a.on .cnt { color: rgba(255,255,255,.85); }
+
+.side-foot { padding: 12px 14px 14px; border-top: 1px solid var(--nav-line); }
+.who-chip { display: flex; align-items: center; gap: 9px; }
+.who-chip .nm { font-size: 12.5px; font-weight: 600; color: #e8eaf1; }
+.who-chip .rl { font-size: 11px; color: #6f778c; }
+
+.main { margin-left: var(--side); flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line);
+  padding: 13px 26px 12px; display: flex; align-items: center; gap: 14px;
+}
+.topbar h1 { font-size: 16px; font-weight: 680; letter-spacing: -.02em; }
+.topbar .sub { font-size: 12.5px; color: var(--ink-3); margin-top: 1px; }
+.topbar .right { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+.demo-chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600;
+  color: var(--a); background: var(--a-soft); border: 1px solid var(--a-line);
+  border-radius: 999px; padding: 3px 10px 3px 8px; white-space: nowrap;
+}
+.demo-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--a); }
+.stamp { font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.content { padding: 20px 26px 64px; flex: 1; }
+.lede { font-size: 13.5px; color: var(--ink-2); max-width: 74ch; margin-bottom: 18px; }
+
+/* ============================ primitives ============================ */
+.panelbox { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad); box-shadow: var(--sh1); }
+.blk { margin-top: 22px; }
+.blk-h { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.blk-h h2 { font-size: 12.5px; font-weight: 700; letter-spacing: .02em; }
+.blk-h .n { font-size: 11.5px; font-weight: 600; color: var(--ink-3); background: var(--surface-3);
+            border-radius: 999px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
+.blk-h .note { font-size: 12.5px; color: var(--ink-3); margin-left: auto; }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 650;
+  border-radius: 6px; padding: 2px 7px; border: 1px solid; white-space: nowrap; letter-spacing: .005em;
+}
+.tag.t-r { color: var(--r); background: var(--r-soft); border-color: var(--r-line); }
+.tag.t-a { color: var(--a); background: var(--a-soft); border-color: var(--a-line); }
+.tag.t-b { color: var(--b); background: var(--b-soft); border-color: var(--b-line); }
+.tag.t-g { color: var(--g); background: var(--g-soft); border-color: var(--g-line); }
+.tag.t-n { color: var(--n); background: var(--n-soft); border-color: var(--n-line); }
+.tag.t-ac { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+.tag.dot::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+.av {
+  width: 26px; height: 26px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  font-size: 10.5px; font-weight: 700; color: #fff; letter-spacing: .01em;
+}
+.av.sm { width: 21px; height: 21px; font-size: 9px; }
+.av.lg { width: 34px; height: 34px; font-size: 12px; }
+.avstack { display: flex; }
+.avstack .av { margin-left: -6px; box-shadow: 0 0 0 2px var(--surface); }
+.avstack .av:first-child { margin-left: 0; }
+
+.meter { height: 5px; border-radius: 3px; background: var(--surface-3); overflow: hidden; }
+.meter > i { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.meter.t-r > i { background: var(--r); } .meter.t-a > i { background: var(--a); }
+.meter.t-g > i { background: var(--g); } .meter.t-b > i { background: var(--b); }
+.meter.t-n > i { background: var(--n-line); }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+       padding: 13px 15px 14px; box-shadow: var(--sh1); position: relative; overflow: hidden; }
+.kpi::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--line-2); }
+.kpi.t-r::after { background: var(--r); } .kpi.t-a::after { background: var(--a); }
+.kpi.t-g::after { background: var(--g); } .kpi.t-b::after { background: var(--b); }
+.kpi.t-ac::after { background: var(--accent); }
+.kpi .k { font-size: 11px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
+.kpi .v { margin-top: 6px; font-size: 27px; font-weight: 700; letter-spacing: -.035em;
+          line-height: 1; font-variant-numeric: tabular-nums; }
+.kpi .s { margin-top: 5px; font-size: 12px; color: var(--ink-3); }
+
+.seg { display: inline-flex; background: var(--surface-3); border: 1px solid var(--line);
+       border-radius: 9px; padding: 2px; gap: 2px;
+       max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.seg::-webkit-scrollbar { display: none; }
+.seg button { flex: none; font-size: 12.5px; font-weight: 550; color: var(--ink-2);
+              padding: 4px 11px; border-radius: 7px; white-space: nowrap; }
+.seg button:hover { color: var(--ink); }
+.seg button.active { background: var(--surface); color: var(--ink); box-shadow: var(--sh1); font-weight: 600; }
+.seg button .n { font-variant-numeric: tabular-nums; opacity: .6; margin-left: 4px; }
+
+.bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.srch { position: relative; margin-left: auto; }
+.srch input {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 9px;
+  padding: 6px 11px 6px 30px; font-size: 12.5px; width: 230px; outline: none; box-shadow: var(--sh1);
+}
+.srch input:focus { border-color: var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft); }
+.srch svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
+            width: 14px; height: 14px; stroke: var(--ink-3); stroke-width: 2; fill: none; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 550;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+  padding: 5px 11px; color: var(--ink-2); box-shadow: var(--sh1);
+}
+.btn:hover { border-color: var(--line-2); color: var(--ink); }
+.btn.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent); }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: #fff;
+           box-shadow: 0 2px 8px rgba(75,72,224,.35); }
+.btn.pri:hover { background: #3f3cd4; color: #fff; }
+
+.lnk { color: var(--accent); font-weight: 550; }
+.lnk:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+.empty { padding: 44px 20px; text-align: center; color: var(--ink-3); }
+.empty .big { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.noresult { display: none; padding: 40px 10px; text-align: center; color: var(--ink-3); font-size: 13px; }
+
+.callout { border-radius: var(--rad); padding: 13px 15px; border: 1px solid var(--accent-line);
+           background: linear-gradient(180deg, #f7f7ff, #f2f2ff); }
+.callout .h { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .03em;
+              text-transform: uppercase; margin-bottom: 4px; }
+
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+       background: var(--surface-3); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; }
+pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+      line-height: 1.65; background: #14161f; color: #d6d9e3; border-radius: 10px;
+      padding: 14px 16px; overflow-x: auto; }
+pre code { background: none; border: none; padding: 0; color: inherit; }
+pre .c { color: #6f7891; } pre .k { color: #a5a2ff; } pre .s { color: #7fd0a8; }
+
+/* ============================ tables ============================ */
+.tbl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+       box-shadow: var(--sh1); overflow: hidden; }
+.tbl-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th { text-align: left; font-size: 11px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase;
+     color: var(--ink-3); white-space: nowrap; padding: 10px 14px; background: var(--surface-2);
+     border-bottom: 1px solid var(--line); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.nw { white-space: nowrap; }
+td .t1 { font-weight: 600; }
+td .t2 { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); }
+
+/* ============================ board (Deal Flow) ============================ */
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(262px, 1fr);
+         gap: 12px; overflow-x: auto; padding-bottom: 8px; align-items: start; }
+.col { background: var(--surface-3); border: 1px solid var(--line); border-radius: var(--rad); padding: 9px; }
+.col-h { display: flex; align-items: center; gap: 7px; padding: 3px 5px 10px; }
+.col-h .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.col-h .nm { font-size: 12px; font-weight: 700; letter-spacing: .01em; }
+.col-h .n { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--ink-3);
+            background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+            padding: 0 7px; font-variant-numeric: tabular-nums; }
+.col-list { display: flex; flex-direction: column; gap: 8px; }
+.dcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+         padding: 11px 12px 10px; box-shadow: var(--sh1); scroll-margin-top: 110px;
+         transition: box-shadow .13s ease, transform .13s ease, border-color .13s ease; }
+.dcard:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
+.dcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.dcard .top { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+.dcard .nm { font-size: 13.5px; font-weight: 680; letter-spacing: -.012em; }
+.dcard .ol { margin-top: 3px; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+.dcard .mrow { margin-top: 9px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+.dcard .rnd { font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.dcard .sc { margin-top: 9px; display: flex; align-items: center; gap: 8px; }
+.dcard .sc .meter { flex: 1; }
+.dcard .sc .v { font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.dcard .foot { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line);
+               display: flex; align-items: center; gap: 8px; }
+.dcard .foot .why { font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis;
+                    white-space: nowrap; }
+
+/* ============================ master / detail (Inbox) ============================ */
+.md { display: grid; grid-template-columns: 372px minmax(0, 1fr); gap: 12px; align-items: start; }
+.md-list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+           box-shadow: var(--sh1); overflow: hidden; }
+.trow { display: flex; gap: 10px; padding: 11px 13px; border-bottom: 1px solid var(--line);
+        cursor: pointer; border-left: 3px solid transparent; }
+.trow:last-child { border-bottom: none; }
+.trow:hover { background: var(--surface-2); }
+.trow.sel { background: var(--accent-soft); border-left-color: var(--accent); }
+.trow .body { min-width: 0; flex: 1; }
+.trow .l1 { display: flex; align-items: center; gap: 6px; }
+.trow .nm { font-size: 12.8px; font-weight: 650; letter-spacing: -.008em; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; }
+.trow .tm { margin-left: auto; font-size: 11px; color: var(--ink-3); white-space: nowrap;
+            font-variant-numeric: tabular-nums; }
+.trow .sj { margin-top: 2px; font-size: 12.5px; color: var(--ink-2); white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; }
+.trow .as { margin-top: 3px; font-size: 12px; color: var(--ink-3); display: -webkit-box;
+            -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pdot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.pdot.p1 { background: var(--r); } .pdot.p2 { background: var(--a); }
+.pdot.p3 { background: var(--b); } .pdot.p4 { background: var(--line-2); }
+
+.md-pane { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+           box-shadow: var(--sh1); padding: 18px 20px 20px; }
+.md-pane .ph { display: flex; align-items: flex-start; gap: 11px; padding-bottom: 13px;
+               border-bottom: 1px solid var(--line); }
+.md-pane .ph .sj { font-size: 15.5px; font-weight: 680; letter-spacing: -.018em; }
+.md-pane .ph .fr { margin-top: 3px; font-size: 12.5px; color: var(--ink-3); }
+.md-pane .tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 13px 0 0; }
+.md-pane h4 { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+              color: var(--ink-3); margin: 16px 0 5px; }
+.md-pane .quote { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+                  padding: 12px 14px; font-size: 13px; line-height: 1.62; white-space: pre-wrap; }
+.md-pane .rd { font-size: 13.2px; line-height: 1.65; color: var(--ink-2); }
+.md-pane .rd b { color: var(--ink); font-weight: 650; }
+.draft { border: 1px solid var(--accent-line); background: #fbfbff; border-radius: 10px; overflow: hidden; }
+.draft-h { display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+           background: var(--accent-soft); border-bottom: 1px solid var(--accent-line); }
+.draft-h .t { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+              color: var(--accent); }
+.draft-b { padding: 13px 14px; font-size: 13px; line-height: 1.68; white-space: pre-wrap; }
+.flaglist { margin: 0 0 0 16px; font-size: 12.8px; color: var(--ink-2); }
+.flaglist li { margin-top: 3px; }
+
+/* ============================ timeline (Day) ============================ */
+.tl { position: relative; padding-left: 74px; }
+.tl::before { content: ""; position: absolute; left: 66px; top: 6px; bottom: 6px; width: 2px;
+              background: var(--line); }
+.slot { position: relative; margin-bottom: 12px; }
+.slot .clock { position: absolute; left: -74px; top: 12px; width: 56px; text-align: right;
+               font-size: 12px; font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.slot .clock .dur { display: block; font-size: 10.5px; font-weight: 500; color: var(--ink-3); margin-top: 1px; }
+.slot::before { content: ""; position: absolute; left: -12px; top: 17px; width: 9px; height: 9px;
+                border-radius: 50%; background: var(--surface); border: 2px solid var(--line-2); z-index: 1; }
+.slot.t-r::before { border-color: var(--r); } .slot.t-a::before { border-color: var(--a); }
+.slot.t-b::before { border-color: var(--b); } .slot.t-g::before { border-color: var(--g); }
+.slot.t-ac::before { border-color: var(--accent); }
+.mcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 13px 15px 12px; scroll-margin-top: 110px; }
+.mcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.mcard .ttl { font-size: 14px; font-weight: 670; letter-spacing: -.015em; }
+.mcard .obj { margin-top: 5px; font-size: 12.8px; color: var(--ink-2); }
+.mcard .who { margin-top: 9px; display: flex; align-items: center; gap: 7px; }
+.mcard .foot { margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--line);
+               display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+
+/* ============================ people grid (Network) ============================ */
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 11px; }
+.pcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 13px 14px 12px; scroll-margin-top: 110px; }
+.pcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.pcard .hd { display: flex; align-items: center; gap: 9px; }
+.pcard .nm { font-size: 13.5px; font-weight: 660; letter-spacing: -.012em; }
+.pcard .ti { font-size: 12px; color: var(--ink-3); margin-top: 1px; }
+.pcard .note { margin-top: 10px; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+.pcard .cad { margin-top: 11px; }
+.pcard .cadrow { display: flex; align-items: center; justify-content: space-between;
+                 font-size: 11.5px; color: var(--ink-3); margin-bottom: 4px; }
+.pcard .foot { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--line);
+               display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+/* ============================ doc view (Diligence) ============================ */
+.doc { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 14px; align-items: start; }
+.doc-side { position: sticky; top: 82px; }
+.doc-side .ttl { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+                 color: var(--ink-3); padding: 0 4px 7px; }
+.doc-side a { display: block; padding: 7px 10px; border-radius: 8px; font-size: 12.8px;
+              font-weight: 550; color: var(--ink-2); border-left: 2px solid transparent; }
+.doc-side a:hover { background: var(--surface-3); color: var(--ink); }
+.doc-side a.on { background: var(--accent-soft); color: var(--accent); border-left-color: var(--accent); }
+.doc-side a .s { display: block; font-size: 11px; font-weight: 500; color: var(--ink-3); margin-top: 1px; }
+.doc-side a.on .s { color: var(--accent); opacity: .75; }
+.brief { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 22px 26px 24px; }
+.brief .bh { padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+.brief .bh .co { font-size: 19px; font-weight: 700; letter-spacing: -.028em; }
+.brief .bh .hl { margin-top: 6px; font-size: 13.8px; color: var(--ink-2); line-height: 1.55; max-width: 70ch; }
+.brief .bh .meta { margin-top: 11px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+.brief section { margin-top: 20px; }
+.brief section h3 { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                    color: var(--ink-3); margin-bottom: 7px; }
+.brief section p { font-size: 13.5px; line-height: 1.68; max-width: 72ch; }
+.brief section p + p { margin-top: 9px; }
+.brief section ul { margin-left: 18px; font-size: 13.4px; line-height: 1.6; max-width: 72ch; }
+.brief section li { margin-top: 5px; }
+.qbox { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; }
+.srcs { font-size: 12.3px; color: var(--ink-3); line-height: 1.6; }
+.srcs li { margin-top: 3px; }
+
+/* ============================ agent cards (Build) ============================ */
+.agrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.acard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 15px 16px 14px; scroll-margin-top: 110px; }
+.acard .hd { display: flex; align-items: center; gap: 9px; }
+.acard .nm { font-size: 13.8px; font-weight: 670; letter-spacing: -.014em; }
+.acard .does { margin-top: 9px; font-size: 12.8px; color: var(--ink-2); line-height: 1.58; }
+.acard .sch { margin-top: 11px; font-size: 12px; color: var(--ink-3); display: flex; gap: 6px;
+              align-items: baseline; }
+.acard .sch b { color: var(--ink-2); font-weight: 600; }
+.acard .io { margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.2px;
+             color: var(--ink-3); line-height: 1.6; }
+.acard .io b { color: var(--ink-2); font-weight: 600; }
+.flow { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding: 4px 0 10px; }
+.fstep { flex: 1; min-width: 132px; background: var(--surface); border: 1px solid var(--line);
+         border-radius: 10px; padding: 11px 12px; box-shadow: var(--sh1); }
+.fstep .n { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--accent); }
+.fstep .t { margin-top: 4px; font-size: 12.8px; font-weight: 620; }
+.fstep .d { margin-top: 3px; font-size: 11.8px; color: var(--ink-3); line-height: 1.5; }
+.farrow { flex: none; width: 26px; display: grid; place-items: center; color: var(--line-2);
+          font-size: 15px; }
+
+/* ============================ disclosure ============================ */
+.dtl { display: none; }
+.dtl.open { display: block; }
+.dtl-in { margin-top: 10px; padding: 12px 13px; background: var(--surface-2);
+          border: 1px solid var(--line); border-radius: 10px; font-size: 12.8px; line-height: 1.62; }
+.dtl-in h4 { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+             color: var(--ink-3); margin-bottom: 4px; }
+.dtl-in h4:not(:first-child) { margin-top: 12px; }
+.dtl-in ul { margin: 0 0 0 16px; }
+.dtl-in li { margin-top: 3px; }
+.dtl-in p + p { margin-top: 7px; }
+.dtl-in b { font-weight: 650; }
+
+/* ============================ footer ============================ */
+.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
+        font-size: 11.5px; color: var(--ink-3); line-height: 1.7; max-width: 96ch; }
+
+/* ============================ responsive ============================ */
+@media (max-width: 1180px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) {
+  :root { --side: 0px; }
+  .side { position: static; width: 100%; flex-direction: column; }
+  .shell { flex-direction: column; }
+  .side-nav { display: flex; gap: 4px; overflow-x: auto; padding: 8px 10px; }
+  .side-nav .grp { display: none; }
+  .side-nav a { white-space: nowrap; margin-bottom: 0; }
+  .side-nav a .cnt { display: none; }
+  .side-foot { display: none; }
+  .main { margin-left: 0; }
+  .topbar { padding: 11px 14px; }
+  .content { padding: 16px 14px 48px; }
+  .stamp { display: none; }
+  .kpis { grid-template-columns: repeat(2, 1fr); gap: 9px; }
+  .kpi .v { font-size: 23px; }
+  .srch { margin-left: 0; width: 100%; }
+  .srch input { width: 100%; }
+  .board { grid-auto-flow: row; grid-auto-columns: auto; }
+  .md, .doc { grid-template-columns: minmax(0, 1fr); }
+  .doc-side { position: static; }
+  .doc-side a { display: inline-block; }
+  .md-list { max-height: 400px; overflow-y: auto; }
+  .md-pane { padding: 15px 15px 17px; }
+  .brief { padding: 17px 16px 19px; }
+  .tl { padding-left: 0; }
+  .tl::before { display: none; }
+  .slot::before { display: none; }
+  .slot .clock { position: static; width: auto; text-align: left; margin-bottom: 5px; }
+  .slot .clock .dur { display: inline; margin-left: 6px; }
+}
+</style>
+</head>
+<body data-view="inbox">
+<div class="shell">
+<aside class="side">
+  <div class="side-top">
+    <div class="mark">
+      <div class="mark-badge">CS</div>
+      <div>
+        <div class="mark-name">Chief of Staff</div>
+        <div class="mark-sub">First Round</div>
+      </div>
+    </div>
+  </div>
+  <nav class="side-nav">
+    <div class="grp">Today</div>
+    <a class="" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v4h-7zM14 11h7v10h-7zM3 14h7v7H3z"/></svg><span>Brief</span><span class="cnt">4</span></a><a class="" href="dealflow.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4v15H4zM10 4h4v9h-4zM16 4h4v12h-4z"/></svg><span>Deal Flow</span><span class="cnt">4</span></a><a class="" href="diligence.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3H7a1 1 0 00-1 1v16a1 1 0 001 1h10a1 1 0 001-1V8zM13 3v5h5M9 13h6M9 17h4"/></svg><span>Diligence</span><span class="cnt">3</span></a><a class="on" href="inbox.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h4l1.5 3h5L16 13h4M4 13l2.4-8h11.2L20 13v6H4z"/></svg><span>Inbox</span><span class="cnt">8</span></a><a class="" href="day.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M9 3v4M15 3v4M8 14h3"/></svg><span>Day</span><span class="cnt">6</span></a><a class="" href="network.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 10a3 3 0 100-6 3 3 0 000 6zM3.5 20a5.5 5.5 0 0111 0M17.5 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM16.5 20h4a4 4 0 00-3-3.87"/></svg><span>Network</span><span class="cnt">2</span></a><a class="" href="projects.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM9 11l2.2 2.2L16 8.5M9 16h6"/></svg><span>Projects</span><span class="cnt">2</span></a><a class="" href="build.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 100-6 3 3 0 000 6zM12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg><span>Build</span><span class="cnt">7</span></a>
+  </nav>
+  <div class="side-foot">
+    <div class="who-chip">
+      <div class="av lg" style="background:#3f3cd4">JK</div>
+      <div>
+        <div class="nm">Josh Kopelman</div>
+        <div class="rl">Partner · First Round</div>
+      </div>
+    </div>
+  </div>
+</aside>
+<div class="main">
+  <header class="topbar">
+    <div>
+      <h1>Inbox</h1>
+      <div class="sub">Everything that arrived, ranked by what it costs to be slow — with the reply already written</div>
+    </div>
+    <div class="right">
+      <span class="demo-chip">Demo data</span>
+      <span class="stamp">Tue Jul 28, 06:40 ET</span>
+    </div>
+  </header>
+  <main class="content">
+<div class="kpis"><div class="kpi t-ac"><div class="k">In the queue</div><div class="v">12</div><div class="s">since the last run</div></div><div class="kpi t-r"><div class="k">Need you today</div><div class="v">2</div><div class="s">P1 — two-hour SLA</div></div><div class="kpi t-g"><div class="k">Replies drafted</div><div class="v">11/12</div><div class="s">waiting on send, not on writing</div></div><div class="kpi t-b"><div class="k">Off your plate</div><div class="v">3</div><div class="s">batched, declined, or delegated</div></div></div><div class="blk"><div class="blk-h"><h2>Queue</h2><span class="n">12</span><span class="note">Priority first, newest first inside a priority</span></div><div class="bar"><div class="seg"><button type="button" class="active" data-f="all">All<span class="n">12</span></button><button type="button" class="" data-f="p1">P1<span class="n">2</span></button><button type="button" class="" data-f="p2">P2<span class="n">3</span></button><button type="button" class="" data-f="p3">P3<span class="n">4</span></button><button type="button" class="" data-f="p4">P4<span class="n">3</span></button><button type="button" class="" data-f="respond-now">Respond now<span class="n">6</span></button><button type="button" class="" data-f="delegate">Delegate<span class="n">2</span></button></div><div class="srch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" placeholder="Search sender, subject, reasoning" aria-label="Search sender, subject, reasoning"></div></div><div class="md" data-md data-filterable><div class="md-list"><div class="trow" data-open="thr_kettle_cap" data-f="p1 respond-now drafted" data-search="priya raman kettle quick question on the cap table wants 20 minutes about the cap table — second time asking in five days. this is the most important message in the inbox and it looks like the least important. priya went quiet for eleven weeks, then wrote twice in five days, both times calling it quick, both times at night. nobody asks about their cap table twice for a small reason. the likely subject is a co-founder departure or a bridge she does not want to put in writing."><span class="av" style="background:#1d4ed8" title="Priya Raman">PR</span><div class="body"><div class="l1"><span class="pdot p1"></span><span class="nm">Priya Raman · Kettle</span><span class="tm">Yesterday</span></div><div class="sj">quick question on the cap table</div><div class="as">Wants 20 minutes about the cap table — second time asking in five days.</div></div></div><div class="trow" data-open="thr_veriform_ts" data-f="p1 respond-now drafted" data-search="sasha lin veriform re: seed round — timing needs a yes or no before thursday — a competing term sheet expires then. hard deadline attached to a live partner-review decision. the reply does not have to be a decision, but it has to be a real timeline, and it has to go today. silence past wednesday is read as a pass by any founder with another offer in hand."><span class="av" style="background:#9a5b06" title="Sasha Lin">SL</span><div class="body"><div class="l1"><span class="pdot p1"></span><span class="nm">Sasha Lin · Veriform</span><span class="tm">Yesterday</span></div><div class="sj">Re: seed round — timing</div><div class="as">Needs a yes or no before Thursday — a competing term sheet expires then.</div></div></div><div class="trow" data-open="thr_dana_intro" data-f="p2 respond-now drafted" data-search="dana ovadia  one for you — infra, seed, moving quickly sending a new company and offering a double opt-in intro. dana is the highest-conversion source in the network — three deals in twelve months, two reached diligence. she sends few and sends well, so the reply cost is low and the expected value is high. answer within the day even if the answer is not now."><span class="av" style="background:#3f3cd4" title="Dana Ovadia">DO</span><div class="body"><div class="l1"><span class="pdot p2"></span><span class="nm">Dana Ovadia</span><span class="tm">07/26</span></div><div class="sj">one for you — infra, seed, moving quickly</div><div class="as">Sending a new company and offering a double opt-in intro.</div></div></div><div class="trow" data-open="thr_lp_calloway" data-f="p2 respond-now drafted" data-search="beth calloway  annual meeting — dates, and one question on fund v pacing confirming annual meeting dates and asking why fund v deployment slowed in q2. an lp asking about pacing is never only asking about pacing. the scheduling half can be delegated; the pacing question needs a real answer from a partner and should not be bundled into a calendar reply."><span class="av" style="background:#4d7c0f" title="Beth Calloway">BC</span><div class="body"><div class="l1"><span class="pdot p2"></span><span class="nm">Beth Calloway</span><span class="tm">07/25</span></div><div class="sj">Annual meeting — dates, and one question on Fund V pacing</div><div class="as">Confirming annual meeting dates and asking why Fund V deployment slowed in Q2.</div></div></div><div class="trow" data-open="thr_stitchwork_intros" data-f="p2 respond-now drafted" data-search="amara king stitchwork series b — would love your help on two intros wants intros to series b funds — sent a list of nine names to choose from. portfolio founder raising, asking for the one thing that costs real relationship capital. worth answering fast and narrowly: two strong intros beat nine weak ones, and sending all nine would spend credibility that gets her nothing."><span class="av" style="background:#9a5b06" title="Amara King">AK</span><div class="body"><div class="l1"><span class="pdot p2"></span><span class="nm">Amara King · Stitchwork</span><span class="tm">07/26</span></div><div class="sj">Series B — would love your help on two intros</div><div class="as">Wants intros to Series B funds — sent a list of nine names to choose from.</div></div></div><div class="trow" data-open="thr_argonaut_ref" data-f="p3 delegate drafted" data-search="kwame asante argonaut re: reference calls — two design partners confirmed confirming two design-partner references for wednesday and asking who should join. logistics on a live diligence thread. no partner judgment required to schedule it; the judgment is in what gets asked on the call, which is already drafted in the deal&#x27;s diligence brief."><span class="av" style="background:#0f766e" title="Kwame Asante">KA</span><div class="body"><div class="l1"><span class="pdot p3"></span><span class="nm">Kwame Asante · Argonaut</span><span class="tm">07/26</span></div><div class="sj">Re: reference calls — two design partners confirmed</div><div class="as">Confirming two design-partner references for Wednesday and asking who should join.</div></div></div><div class="trow" data-open="thr_hiro_reply" data-f="p3 respond-now drafted" data-search="hiro tanaka  re: apparel manufacturing at the a open to looking at an apparel-manufacturing series a and asking what stage the company is at. this is the other half of amara&#x27;s intro request arriving before it was asked for. answering this well is what makes that intro land, so the two should be handled as one move rather than two threads."><span class="av" style="background:#b91c5c" title="Hiro Tanaka">HT</span><div class="body"><div class="l1"><span class="pdot p3"></span><span class="nm">Hiro Tanaka</span><span class="tm">07/24</span></div><div class="sj">Re: apparel manufacturing at the A</div><div class="as">Open to looking at an apparel-manufacturing Series A and asking what stage the company is at.</div></div></div><div class="trow" data-open="thr_lassiter_speak" data-f="p3 delegate drafted" data-search="grace lassiter  keynote invitation — northeast founders summit, november wants a 40-minute keynote in boston on nov 12, plus a panel the same afternoon. real event, decent audience, but a full day plus travel for a november slot. this is a calendar-shape question rather than a judgment question — the answer depends on what else november already holds, which is the assistant&#x27;s to answer first."><span class="av" style="background:#0f766e" title="Grace Lassiter">GL</span><div class="body"><div class="l1"><span class="pdot p3"></span><span class="nm">Grace Lassiter</span><span class="tm">07/23</span></div><div class="sj">Keynote invitation — Northeast Founders Summit, November</div><div class="as">Wants a 40-minute keynote in Boston on Nov 12, plus a panel the same afternoon.</div></div></div><div class="trow" data-open="thr_pendle_pitch" data-f="p3 batch drafted" data-search="elena vos pendle health pendle health — seed round, prior auth for specialty practices cold pitch for a $2.5m seed, asking for 30 minutes. cold, credible, and scored a 5. real pain and a real founder, but the go-to-market is one practice at a time with no evidence yet that it compounds. worth a screen, not worth a partner&#x27;s monday. booked for thursday."><span class="av" style="background:#6b21a8" title="Elena Vos">EV</span><div class="body"><div class="l1"><span class="pdot p3"></span><span class="nm">Elena Vos · Pendle Health</span><span class="tm">07/25</span></div><div class="sj">Pendle Health — seed round, prior auth for specialty practices</div><div class="as">Cold pitch for a $2.5M seed, asking for 30 minutes.</div></div></div><div class="trow" data-open="thr_student" data-f="p4 batch drafted" data-search="camila ruiz  coffee chat request — breaking into vc mba student asking for 30 minutes about getting into venture. polite, well-written, and one of roughly nine of these a week. batched to friday with a real reply rather than ignored — the answer is a link to something written once and a genuine no to the meeting."><span class="av" style="background:#0f766e" title="Camila Ruiz">CR</span><div class="body"><div class="l1"><span class="pdot p4"></span><span class="nm">Camila Ruiz</span><span class="tm">07/22</span></div><div class="sj">Coffee chat request — breaking into VC</div><div class="as">MBA student asking for 30 minutes about getting into venture.</div></div></div><div class="trow" data-open="thr_theo_pass" data-f="p4 already-drafted drafted" data-search="theo brandt halden robotics re: our conversation thanking us for the pass note and the two intros; says both funds replied. a pass that produced a warmer relationship than the meeting did. nothing needed beyond a short human reply, but worth noting: this is the outcome the pass-note habit exists to produce, and the counter should be visible somewhere."><span class="av" style="background:#9a5b06" title="Theo Brandt">TB</span><div class="body"><div class="l1"><span class="pdot p4"></span><span class="nm">Theo Brandt · Halden Robotics</span><span class="tm">07/21</span></div><div class="sj">Re: our conversation</div><div class="as">Thanking us for the pass note and the two intros; says both funds replied.</div></div></div><div class="trow" data-open="thr_vendor_blast" data-f="p4 decline" data-search="trent alsop  quick question, {firstname} wants 15 minutes to demo a data platform. untargeted mass template — the unrendered merge tag in the subject line settles it. no reply warranted, and it is the fourth from this sender this quarter."><span class="av" style="background:#1d4ed8" title="Trent Alsop">TA</span><div class="body"><div class="l1"><span class="pdot p4"></span><span class="nm">Trent Alsop</span><span class="tm">07/26</span></div><div class="sj">Quick question, {FirstName}</div><div class="as">Wants 15 minutes to demo a data platform.</div></div></div></div><div><div class="md-pane" data-pane="thr_kettle_cap" id="thr_kettle_cap"><div class="ph"><span class="av lg" style="background:#1d4ed8" title="Priya Raman">PR</span><div><div class="sj">quick question on the cap table</div><div class="fr"><a class="lnk" href="network.html#per_priya_raman">Priya Raman</a> · Kettle · priya@kettle.example</div></div></div><div class="tags"><span class="tag t-r">P1</span><span class="tag t-r">Within 2 hours</span><span class="tag t-r">Respond now</span></div><h4>The ask</h4><div class="rd">Wants 20 minutes about the cap table — second time asking in five days.</div><h4>Why it ranks here</h4><div class="rd">This is the most important message in the inbox and it looks like the least important. Priya went quiet for eleven weeks, then wrote twice in five days, both times calling it quick, both times at night. Nobody asks about their cap table twice for a small reason. The likely subject is a co-founder departure or a bridge she does not want to put in writing.</div><h4>Flags</h4><ul class="flaglist"><li>Second ask in five days</li><li>Sent 21:14</li><li>Eleven weeks of silence before this</li><li>Understated subject line</li></ul><h4>Message</h4><div class="quote">Hey — sorry to bug you again. Any chance of 20 min this week? Just a quick question on the cap table, nothing urgent. Would rather talk than email it.
+
+P.</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_kettle_cap_d">Copy</button></div><div class="draft-b" id="thr_kettle_cap_d">Priya — how about tomorrow 8am or 4pm ET, your pick? Happy to make it longer than 20 if useful.
+
+And whatever it is, it&#x27;s fine to say it in the meeting rather than writing it down. Just tell me what you need.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="diligence.html#co_kettle">Kettle</a> · <a class="lnk" href="network.html#per_priya_raman">Priya Raman</a></div></div><div class="md-pane" data-pane="thr_veriform_ts" id="thr_veriform_ts"><div class="ph"><span class="av lg" style="background:#9a5b06" title="Sasha Lin">SL</span><div><div class="sj">Re: seed round — timing</div><div class="fr"><a class="lnk" href="network.html#per_sasha_lin">Sasha Lin</a> · Veriform · sasha@veriform.example</div></div></div><div class="tags"><span class="tag t-r">P1</span><span class="tag t-r">Within 2 hours</span><span class="tag t-r">Respond now</span></div><h4>The ask</h4><div class="rd">Needs a yes or no before Thursday — a competing term sheet expires then.</div><h4>Why it ranks here</h4><div class="rd">Hard deadline attached to a live partner-review decision. The reply does not have to be a decision, but it has to be a real timeline, and it has to go today. Silence past Wednesday is read as a pass by any founder with another offer in hand.</div><h4>Flags</h4><ul class="flaglist"><li>Hard deadline Thursday</li><li>Competing term sheet in play</li></ul><h4>Message</h4><div class="quote">No pressure intended and I&#x27;d much rather work with you than them — but I do have to give the other fund an answer by Thursday. Is there any read you can give me before then, even a directional one?
+
+Sasha</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_veriform_ts_d">Copy</button></div><div class="draft-b" id="thr_veriform_ts_d">Sasha — you&#x27;ll have a real answer from us by end of day Wednesday, not Thursday. That&#x27;s a commitment.
+
+Directionally: we&#x27;re engaged, the open question for us is round construction rather than conviction in you. I&#x27;d rather tell you that plainly than have you read a delay as a signal.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="dealflow.html#deal_veriform">Veriform</a> · <a class="lnk" href="diligence.html#co_veriform">Veriform</a></div></div><div class="md-pane" data-pane="thr_dana_intro" id="thr_dana_intro"><div class="ph"><span class="av lg" style="background:#3f3cd4" title="Dana Ovadia">DO</span><div><div class="sj">one for you — infra, seed, moving quickly</div><div class="fr"><a class="lnk" href="network.html#per_dana_ovadia">Dana Ovadia</a> · dana@cardinalst.example</div></div></div><div class="tags"><span class="tag t-a">P2</span><span class="tag t-a">Today</span><span class="tag t-r">Respond now</span></div><h4>The ask</h4><div class="rd">Sending a new company and offering a double opt-in intro.</div><h4>Why it ranks here</h4><div class="rd">Dana is the highest-conversion source in the network — three deals in twelve months, two reached diligence. She sends few and sends well, so the reply cost is low and the expected value is high. Answer within the day even if the answer is not now.</div><h4>Message</h4><div class="quote">Not going to oversell this one. Founder is technical, market is crowded, but she&#x27;s the sharpest person I&#x27;ve met on the problem this year. Want me to make the intro or shall I hold?
+
+D.</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_dana_intro_d">Copy</button></div><div class="draft-b" id="thr_dana_intro_d">Yes to the intro — your hit rate has earned an automatic yes at this point.
+
+One thing before you send: is she running a process with a close date, or is this exploratory? Changes how fast I need to move and I&#x27;d rather know now than find out in the first call.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="network.html#per_dana_ovadia">Dana Ovadia</a></div></div><div class="md-pane" data-pane="thr_lp_calloway" id="thr_lp_calloway"><div class="ph"><span class="av lg" style="background:#4d7c0f" title="Beth Calloway">BC</span><div><div class="sj">Annual meeting — dates, and one question on Fund V pacing</div><div class="fr"><a class="lnk" href="network.html#per_beth_calloway">Beth Calloway</a> · bcalloway@wexfordendow.example</div></div></div><div class="tags"><span class="tag t-a">P2</span><span class="tag t-a">This week</span><span class="tag t-r">Respond now</span></div><h4>The ask</h4><div class="rd">Confirming annual meeting dates and asking why Fund V deployment slowed in Q2.</div><h4>Why it ranks here</h4><div class="rd">An LP asking about pacing is never only asking about pacing. The scheduling half can be delegated; the pacing question needs a real answer from a partner and should not be bundled into a calendar reply.</div><h4>Flags</h4><ul class="flaglist"><li>Two questions in one message — one delegable, one not</li></ul><h4>Message</h4><div class="quote">Two things. First, we&#x27;re firming up dates for the annual — does the week of Oct 19 work on your end?
+
+Second, and no rush on this one: we noticed Fund V pacing looked lighter in Q2 than the prior two quarters. Nothing alarming, just want to understand the thinking.
+
+Beth</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_lp_calloway_d">Copy</button></div><div class="draft-b" id="thr_lp_calloway_d">Beth — week of Oct 19 works; sending three specific slots separately so we can lock it.
+
+On pacing: the slowdown was deliberate rather than a lack of opportunity. Happy to walk you through what we passed on in Q2 and why — that&#x27;s a more useful conversation than the number itself. Would 30 minutes before the annual be helpful, or would you rather have it in writing first?</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="network.html#per_beth_calloway">Beth Calloway</a> · <a class="lnk" href="projects.html#prj_annual_meeting">LP annual meeting — October</a></div></div><div class="md-pane" data-pane="thr_stitchwork_intros" id="thr_stitchwork_intros"><div class="ph"><span class="av lg" style="background:#9a5b06" title="Amara King">AK</span><div><div class="sj">Series B — would love your help on two intros</div><div class="fr"><a class="lnk" href="network.html#per_amara_king">Amara King</a> · Stitchwork · amara@stitchwork.example</div></div></div><div class="tags"><span class="tag t-a">P2</span><span class="tag t-a">Today</span><span class="tag t-r">Respond now</span></div><h4>The ask</h4><div class="rd">Wants intros to Series B funds — sent a list of nine names to choose from.</div><h4>Why it ranks here</h4><div class="rd">Portfolio founder raising, asking for the one thing that costs real relationship capital. Worth answering fast and narrowly: two strong intros beat nine weak ones, and sending all nine would spend credibility that gets her nothing.</div><h4>Message</h4><div class="quote">Attaching the list we&#x27;ve built — nine funds, ranked. If any of these are people you know well I&#x27;d rather have your intro than go in cold. Totally understand if the answer is one or none.
+
+Amara</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_stitchwork_intros_d">Copy</button></div><div class="draft-b" id="thr_stitchwork_intros_d">Amara — two of the nine I know well enough for the intro to actually carry weight, and I&#x27;ll make both this week. The rest I&#x27;d be doing you a disservice on; a lukewarm intro is worse than a cold email you write yourself, which you&#x27;re good at.
+
+Sending the forwardable blurb tonight for you to edit before I send anything.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="diligence.html#co_stitchwork">Stitchwork</a> · <a class="lnk" href="network.html#per_amara_king">Amara King</a> · <a class="lnk" href="network.html#per_hiro_tanaka">Hiro Tanaka</a></div></div><div class="md-pane" data-pane="thr_argonaut_ref" id="thr_argonaut_ref"><div class="ph"><span class="av lg" style="background:#0f766e" title="Kwame Asante">KA</span><div><div class="sj">Re: reference calls — two design partners confirmed</div><div class="fr">Kwame Asante · Argonaut · kwame@argonaut.example</div></div></div><div class="tags"><span class="tag t-b">P3</span><span class="tag t-n">This week</span><span class="tag t-b">Delegate</span></div><h4>The ask</h4><div class="rd">Confirming two design-partner references for Wednesday and asking who should join.</div><h4>Why it ranks here</h4><div class="rd">Logistics on a live diligence thread. No partner judgment required to schedule it; the judgment is in what gets asked on the call, which is already drafted in the deal&#x27;s diligence brief.</div><h4>Message</h4><div class="quote">Both are up for it — Wednesday works for either 11am or 3pm ET. Let me know which and I&#x27;ll send invites. Happy to be on or off the call, your preference.
+
+Kwame</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_argonaut_ref_d">Copy</button></div><div class="draft-b" id="thr_argonaut_ref_d">Wednesday 11am works, and better if you&#x27;re not on it — references are more useful when the founder isn&#x27;t in the room, and that&#x27;s not a comment on you.
+
+We&#x27;ll come back same day either way.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="dealflow.html#deal_argonaut">Argonaut</a> · <a class="lnk" href="diligence.html#co_argonaut">Argonaut</a></div></div><div class="md-pane" data-pane="thr_hiro_reply" id="thr_hiro_reply"><div class="ph"><span class="av lg" style="background:#b91c5c" title="Hiro Tanaka">HT</span><div><div class="sj">Re: apparel manufacturing at the A</div><div class="fr"><a class="lnk" href="network.html#per_hiro_tanaka">Hiro Tanaka</a> · hiro@meridiangrowth.example</div></div></div><div class="tags"><span class="tag t-b">P3</span><span class="tag t-n">This week</span><span class="tag t-r">Respond now</span></div><h4>The ask</h4><div class="rd">Open to looking at an apparel-manufacturing Series A and asking what stage the company is at.</div><h4>Why it ranks here</h4><div class="rd">This is the other half of Amara&#x27;s intro request arriving before it was asked for. Answering this well is what makes that intro land, so the two should be handled as one move rather than two threads.</div><h4>Message</h4><div class="quote">Always happy to look. We&#x27;ve been under-allocated in vertical software for manufacturing and I&#x27;ve been trying to fix that. What stage are they at — post-A metrics or pre?
+
+Hiro</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_hiro_reply_d">Copy</button></div><div class="draft-b" id="thr_hiro_reply_d">Post-A metrics, raising a B. I&#x27;ll send the forwardable blurb this week once the founder has signed off on it.
+
+Short version so you can decide whether to keep reading: production planning for small apparel manufacturers, four years in, and the founder is the reason to take the meeting.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="network.html#per_hiro_tanaka">Hiro Tanaka</a> · <a class="lnk" href="diligence.html#co_stitchwork">Stitchwork</a> · <a class="lnk" href="network.html#per_amara_king">Amara King</a></div></div><div class="md-pane" data-pane="thr_lassiter_speak" id="thr_lassiter_speak"><div class="ph"><span class="av lg" style="background:#0f766e" title="Grace Lassiter">GL</span><div><div class="sj">Keynote invitation — Northeast Founders Summit, November</div><div class="fr">Grace Lassiter · grace@nefsummit.example</div></div></div><div class="tags"><span class="tag t-b">P3</span><span class="tag t-n">This week</span><span class="tag t-b">Delegate</span></div><h4>The ask</h4><div class="rd">Wants a 40-minute keynote in Boston on Nov 12, plus a panel the same afternoon.</div><h4>Why it ranks here</h4><div class="rd">Real event, decent audience, but a full day plus travel for a November slot. This is a calendar-shape question rather than a judgment question — the answer depends on what else November already holds, which is the assistant&#x27;s to answer first.</div><h4>Flags</h4><ul class="flaglist"><li>Two commitments bundled as one ask</li><li>Full day plus travel</li></ul><h4>Message</h4><div class="quote">We&#x27;d be honoured to have you open the summit. 40 minutes, topic of your choosing, and we&#x27;d love you on the afternoon founder panel as well if the day allows.
+
+Grace Lassiter</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_lassiter_speak_d">Copy</button></div><div class="draft-b" id="thr_lassiter_speak_d">Grace — thank you for asking. Checking what November looks like before I answer properly.
+
+If it happens it will be the keynote or the panel rather than both; a half day I can protect, a full one I probably can&#x27;t.</div></div><h4>Related</h4><div class="rd">Grace Lassiter · <a class="lnk" href="projects.html#prj_speaking">Q4 speaking and events</a></div></div><div class="md-pane" data-pane="thr_pendle_pitch" id="thr_pendle_pitch"><div class="ph"><span class="av lg" style="background:#6b21a8" title="Elena Vos">EV</span><div><div class="sj">Pendle Health — seed round, prior auth for specialty practices</div><div class="fr">Elena Vos · Pendle Health · elena@pendle.example</div></div></div><div class="tags"><span class="tag t-b">P3</span><span class="tag t-n">This week</span><span class="tag t-n">Batch</span></div><h4>The ask</h4><div class="rd">Cold pitch for a $2.5M seed, asking for 30 minutes.</div><h4>Why it ranks here</h4><div class="rd">Cold, credible, and scored a 5. Real pain and a real founder, but the go-to-market is one practice at a time with no evidence yet that it compounds. Worth a screen, not worth a partner&#x27;s Monday. Booked for Thursday.</div><h4>Message</h4><div class="quote">We handle prior authorisation end to end for specialty practices — currently 11 clinics, $18K MRR, growing through referrals between practice managers. Raising $2.5M. Would love 30 minutes.
+
+Elena Vos, Pendle Health</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_pendle_pitch_d">Copy</button></div><div class="draft-b" id="thr_pendle_pitch_d">Elena — thanks for the clear note; the referral-between-practice-managers detail is the most interesting line in it.
+
+Booking 30 minutes Thursday. Fair warning that the thing I&#x27;ll push hardest on is whether that referral motion compounds or whether every clinic is its own sale. Worth thinking about before we talk.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="dealflow.html#deal_pendle">Pendle Health</a> · <a class="lnk" href="diligence.html#co_pendle">Pendle Health</a></div></div><div class="md-pane" data-pane="thr_student" id="thr_student"><div class="ph"><span class="av lg" style="background:#0f766e" title="Camila Ruiz">CR</span><div><div class="sj">Coffee chat request — breaking into VC</div><div class="fr">Camila Ruiz · cruiz@university.example</div></div></div><div class="tags"><span class="tag t-n">P4</span><span class="tag t-n">Batch Friday</span><span class="tag t-n">Batch</span></div><h4>The ask</h4><div class="rd">MBA student asking for 30 minutes about getting into venture.</div><h4>Why it ranks here</h4><div class="rd">Polite, well-written, and one of roughly nine of these a week. Batched to Friday with a real reply rather than ignored — the answer is a link to something written once and a genuine no to the meeting.</div><h4>Message</h4><div class="quote">I know your time is valuable so I&#x27;ll be brief — I&#x27;m a second-year MBA focused on early-stage software and would be grateful for 30 minutes of your perspective on breaking in.
+
+Camila Ruiz</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_student_d">Copy</button></div><div class="draft-b" id="thr_student_d">Camila — I can&#x27;t do the 30 minutes, and I&#x27;d rather tell you that than let it sit in a folder for three weeks.
+
+What I&#x27;d actually suggest: the people who broke in that I&#x27;ve watched do it did so by publishing a point of view on a specific market until someone in it noticed. That is slower and works better than a hundred coffees. Happy to read the first one you write.</div></div><h4>Related</h4><div class="rd">Camila Ruiz</div></div><div class="md-pane" data-pane="thr_theo_pass" id="thr_theo_pass"><div class="ph"><span class="av lg" style="background:#9a5b06" title="Theo Brandt">TB</span><div><div class="sj">Re: our conversation</div><div class="fr"><a class="lnk" href="network.html#per_theo_brandt">Theo Brandt</a> · Halden Robotics · theo@halden.example</div></div></div><div class="tags"><span class="tag t-n">P4</span><span class="tag t-n">Batch</span><span class="tag t-g">Closed</span></div><h4>The ask</h4><div class="rd">Thanking us for the pass note and the two intros; says both funds replied.</div><h4>Why it ranks here</h4><div class="rd">A pass that produced a warmer relationship than the meeting did. Nothing needed beyond a short human reply, but worth noting: this is the outcome the pass-note habit exists to produce, and the counter should be visible somewhere.</div><h4>Message</h4><div class="quote">Genuinely the most useful no I&#x27;ve had in this raise — both intros replied within a day and one is now in diligence. Whatever the next one is, you&#x27;ll see it first.
+
+Theo</div><h4>Drafted reply</h4><div class="draft"><div class="draft-h"><span class="t">Draft — not sent</span><button type="button" class="btn" data-copy="thr_theo_pass_d">Copy</button></div><div class="draft-b" id="thr_theo_pass_d">Theo — glad they were useful, and I meant what I said about the shape rather than the team. Send the next one early.</div></div><h4>Related</h4><div class="rd"><a class="lnk" href="dealflow.html#deal_halden">Halden Robotics</a> · <a class="lnk" href="network.html#per_theo_brandt">Theo Brandt</a></div></div><div class="md-pane" data-pane="thr_vendor_blast" id="thr_vendor_blast"><div class="ph"><span class="av lg" style="background:#1d4ed8" title="Trent Alsop">TA</span><div><div class="sj">Quick question, {FirstName}</div><div class="fr">Trent Alsop · t.alsop@databridge-analytics.example</div></div></div><div class="tags"><span class="tag t-n">P4</span><span class="tag t-n">No reply</span><span class="tag t-n">Decline</span></div><h4>The ask</h4><div class="rd">Wants 15 minutes to demo a data platform.</div><h4>Why it ranks here</h4><div class="rd">Untargeted mass template — the unrendered merge tag in the subject line settles it. No reply warranted, and it is the fourth from this sender this quarter.</div><h4>Flags</h4><ul class="flaglist"><li>Broken mail-merge token in subject</li><li>Fourth message from this sender this quarter</li><li>No indication they know what the firm does</li></ul><h4>Message</h4><div class="quote">Hi {FirstName}, noticed you&#x27;re in the investment space and thought DataBridge could be a great fit for your workflows. Do you have 15 minutes Thursday?
+
+Trent</div><h4>Drafted reply</h4><div class="rd" style="color:var(--ink-3)">None. This one does not get a reply.</div><h4>Related</h4><div class="rd">Trent Alsop</div></div></div></div><div class="noresult">Nothing matches that filter.</div></div>
+    <footer class="foot">
+      Synthetic demonstration data. Every company, founder, message, meeting, and project on this site is invented for the demo. No First Round portfolio company, employee, or communication appears anywhere in it.<br>
+      Built as a work sample for the Chief of Staff role. Every page is generated from the
+      JSON in <code>data/</code> by <code>make.py</code> — run <code>python make.py --check</code>
+      to confirm the output regenerates byte for byte.
+    </footer>
+  </main>
+</div>
+</div>
+<script>
+(function () {
+  'use strict';
+  // Each feature initialises independently: one failure cannot blank a page.
+  function safe(fn) { try { fn(); } catch (e) {} }
+  var SLUG = document.body.getAttribute('data-view') || 'x';
+
+  // --- segmented filter + search --------------------------------------------
+  safe(function () {
+    var scope = document.querySelector('[data-filterable]');
+    if (!scope) return;
+    var items = [].slice.call(scope.querySelectorAll('[data-search]'));
+    if (!items.length) return;
+    var segs = [].slice.call(document.querySelectorAll('[data-f]'));
+    var box = document.querySelector('.srch input');
+    var none = document.querySelector('.noresult');
+    var groups = [].slice.call(scope.querySelectorAll('[data-group]'));
+    var KEY = 'frc:' + SLUG + ':filter';
+    var st = { f: 'all', q: '' };
+
+    function apply() {
+      var shown = 0;
+      items.forEach(function (el) {
+        var okF = st.f === 'all' || (el.dataset.f || '').split(' ').indexOf(st.f) !== -1;
+        var okQ = !st.q || el.dataset.search.indexOf(st.q) !== -1;
+        var ok = okF && okQ;
+        el.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+      // hide a board column / section that has nothing left in it
+      groups.forEach(function (g) {
+        var live = [].slice.call(g.querySelectorAll('[data-search]'))
+          .filter(function (e) { return e.style.display !== 'none'; });
+        g.style.display = live.length ? '' : 'none';
+      });
+      if (none) none.style.display = shown ? 'none' : 'block';
+    }
+    function select(v) {
+      st.f = v;
+      segs.forEach(function (s) { s.classList.toggle('active', s.dataset.f === v); });
+      apply();
+    }
+    segs.forEach(function (s) {
+      s.addEventListener('click', function () {
+        select(s.dataset.f);
+        try { localStorage.setItem(KEY, s.dataset.f); } catch (e) {}
+      });
+    });
+    if (box) box.addEventListener('input', function () { st.q = box.value.trim().toLowerCase(); apply(); });
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (saved && segs.some(function (s) { return s.dataset.f === saved; })) select(saved);
+    else apply();
+  });
+
+  // --- disclosure ------------------------------------------------------------
+  safe(function () {
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-toggle]');
+      if (!t) return;
+      var p = document.getElementById(t.dataset.toggle);
+      if (!p) return;
+      var open = p.classList.toggle('open');
+      t.classList.toggle('on', open);
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // --- master / detail (Inbox, Diligence) ------------------------------------
+  safe(function () {
+    var panes = document.querySelector('[data-md]');
+    if (!panes) return;
+    var rows = [].slice.call(panes.querySelectorAll('[data-open]'));
+    var details = [].slice.call(panes.querySelectorAll('[data-pane]'));
+    if (!rows.length) return;
+
+    function show(id, push) {
+      var found = false;
+      details.forEach(function (d) {
+        var on = d.dataset.pane === id;
+        d.style.display = on ? '' : 'none';
+        if (on) found = true;
+      });
+      rows.forEach(function (r) { r.classList.toggle('sel', r.dataset.open === id); });
+      if (found && push) history.replaceState(null, '', '#' + id);
+      if (found && window.innerWidth <= 900) {
+        var pane = panes.querySelector('[data-pane="' + id + '"]');
+        if (pane) pane.scrollIntoView({ block: 'start' });
+      }
+      return found;
+    }
+    rows.forEach(function (r) {
+      r.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
+        show(r.dataset.open, true);
+      });
+    });
+    var start = location.hash.slice(1);
+    if (!start || !show(start, false)) show(rows[0].dataset.open, false);
+    window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+  });
+
+  // --- copy ------------------------------------------------------------------
+  safe(function () {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-copy]');
+      if (!b) return;
+      var src = document.getElementById(b.dataset.copy);
+      var txt = src ? src.innerText.trim() : '';
+      var flash = function () {
+        var old = b.innerHTML;
+        b.textContent = 'Copied';
+        setTimeout(function () { b.innerHTML = old; }, 1200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(flash, function () {});
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); flash(); } catch (err) {}
+      document.body.removeChild(ta);
+    });
+  });
+
+  // --- reveal a deep-linked card --------------------------------------------
+  safe(function () {
+    function reveal() {
+      var id = location.hash.slice(1);
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = '';
+      var t = el.querySelector('[data-toggle]');
+      if (t && !t.classList.contains('on')) t.click();
+    }
+    reveal();
+    window.addEventListener('hashchange', reveal);
+  });
+})();
+</script>
+</body>
+</html>

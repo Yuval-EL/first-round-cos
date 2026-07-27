@@ -1,0 +1,39 @@
+{
+  "company": "co_tallow",
+  "generated_by": "agt_diligence",
+  "generated_at": "2026-07-24",
+  "confidence": "low",
+  "headline": "Cold inbound that earned a second look. Unglamorous market, real revenue, one founder doing all of it.",
+  "sections": [
+    {
+      "h": "What they do",
+      "body": "Tallow reads a restaurant group's point-of-sale data and tells them which menu items are actually making money once labour and waste are allocated properly. The insight is that most independent groups price from instinct and discover margin problems a quarter late. Rina Devarakonda (per_rina_devarakonda) built it while doing the books for her family's three restaurants."
+    },
+    {
+      "h": "Why this got past the screen",
+      "body": "It arrived cold, with no intro, which usually means a low prior. It scored anyway on three signals: the founder is the customer, there is revenue before there was any funding, and the deck contained a slide honestly titled 'why this might be a small business.' That slide is the reason this is in diligence."
+    },
+    {
+      "h": "Traction",
+      "bullets": [
+        "$9K MRR across 14 restaurant groups, 62 locations total",
+        "Two groups expanded from 3 to 11 locations without a sales conversation",
+        "Built solo — no engineering hires yet"
+      ]
+    },
+    {
+      "h": "The concern",
+      "body": "Independent restaurant groups are a hard customer: thin margins, low software budgets, high mortality. The expansion behaviour is genuinely encouraging, but 14 customers is not enough to know whether that is a pattern or two happy accidents. Reference calls are scheduled for this week and should be treated as the decision input rather than the deck."
+    }
+  ],
+  "open_questions": [
+    "Does the expansion pattern hold beyond the two groups, or is it those two operators specifically?",
+    "What is the realistic ceiling on price before a $2M-revenue restaurant group balks?",
+    "Solo founder, no technical hire. Is she recruiting, and can she?"
+  ],
+  "sources": [
+    "Inbound deck, Jul 14",
+    "Founder call, Jul 21",
+    "Reference calls with two paying customers scheduled for Jul 29"
+  ]
+}

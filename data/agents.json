@@ -1,0 +1,145 @@
+[
+  {
+    "id": "agt_intake",
+    "name": "Inbound Intake",
+    "feeds": ["dealflow", "brief"],
+    "autonomy": "flags",
+    "schedule": {"label": "every 15 min, 06:00–21:00 ET", "trigger": "new mail in the deals alias"},
+    "does": "Reads every inbound pitch, extracts company, round, ask, and source, scores it against the thesis on four axes, and files it into the pipeline. Never replies, never moves a deal past Screening on its own.",
+    "inputs": [
+      {"source": "Mail — deals alias", "contract": "message"},
+      {"source": "CRM — company records", "contract": "company.v1"}
+    ],
+    "outputs": [
+      {"artifact": "data/deals.json", "contract": "deal.v1"}
+    ],
+    "escalates_when": [
+      "score >= 8",
+      "the sender is a person tiered 'core' in the network",
+      "the round closes inside 7 days"
+    ],
+    "human_in_loop": "Every stage change past Screening is made by a human. The agent proposes, it does not promote."
+  },
+  {
+    "id": "agt_diligence",
+    "name": "Diligence Writer",
+    "feeds": ["diligence", "dealflow"],
+    "autonomy": "drafts",
+    "schedule": {"label": "on demand, and every Thursday 05:00 ET", "trigger": "a deal enters Diligence"},
+    "does": "Assembles the first-pass brief on a company: what they do, who the founders are, the traction as claimed, the competitive set, and — the part that matters — a 'what would have to be true' section written as falsifiable statements rather than enthusiasm.",
+    "inputs": [
+      {"source": "Founder-provided materials", "contract": "attachment"},
+      {"source": "Public web + filings", "contract": "citation"},
+      {"source": "Reference call notes", "contract": "note"}
+    ],
+    "outputs": [
+      {"artifact": "data/diligence/co_*.json", "contract": "brief.v1"}
+    ],
+    "escalates_when": [
+      "a claimed metric cannot be corroborated from any second source",
+      "confidence lands at 'low' but the deal is already past Diligence"
+    ],
+    "human_in_loop": "Every brief is labelled with a confidence level and its sources. No brief is shown without them, and no number appears that the agent could not attribute."
+  },
+  {
+    "id": "agt_triage",
+    "name": "Inbox Triage",
+    "feeds": ["inbox", "brief"],
+    "autonomy": "drafts",
+    "schedule": {"label": "every 10 min, 06:00–21:00 ET", "trigger": "new mail"},
+    "does": "Assigns a priority and an SLA to everything that arrives, states the actual ask in one line, flags the things that look like a waste of a partner's morning, and drafts a reply in the sender's own register. Read-only on the mailbox — it never sends, archives, or labels.",
+    "inputs": [
+      {"source": "Mail — primary inbox", "contract": "message"},
+      {"source": "data/people.json", "contract": "person.v1"}
+    ],
+    "outputs": [
+      {"artifact": "data/threads.json", "contract": "thread.v1"}
+    ],
+    "escalates_when": [
+      "a portfolio founder writes twice without a reply",
+      "a P1 has been open longer than its SLA",
+      "the sender is owed a reply from a prior thread"
+    ],
+    "human_in_loop": "Drafts are drafts. Nothing leaves the mailbox without a human pressing send."
+  },
+  {
+    "id": "agt_prep",
+    "name": "Meeting Prep",
+    "feeds": ["day", "brief"],
+    "autonomy": "drafts",
+    "schedule": {"label": "17:00 ET the day before, and 60 min before any added meeting", "trigger": "calendar change"},
+    "does": "For every meeting on the calendar: who is in the room, why it exists, what happened last time, the two or three questions worth asking, and what would make it a wasted half hour. Pulls the open threads with each attendee so nothing is discussed twice or forgotten once.",
+    "inputs": [
+      {"source": "Calendar", "contract": "event"},
+      {"source": "data/threads.json", "contract": "thread.v1"},
+      {"source": "data/diligence/", "contract": "brief.v1"}
+    ],
+    "outputs": [
+      {"artifact": "data/meetings.json", "contract": "meeting.v1"}
+    ],
+    "escalates_when": [
+      "a meeting has no stated objective 12 hours out",
+      "an attendee is owed a reply that has not been sent"
+    ],
+    "human_in_loop": "The prep is a starting point, not a script. Nothing about it is shared outside the firm."
+  },
+  {
+    "id": "agt_network",
+    "name": "Relationship Watch",
+    "feeds": ["network", "brief"],
+    "autonomy": "flags",
+    "schedule": {"label": "daily 05:30 ET", "trigger": "cadence lapse"},
+    "does": "Tracks the people who matter and how long it has been. Surfaces the ones who have gone past their cadence, the replies that are owed, and the shortest warm path to anyone new. Deliberately silent about people who are simply busy — the point is to catch drift, not to manufacture touchpoints.",
+    "inputs": [
+      {"source": "Mail metadata — who, when, which direction", "contract": "message"},
+      {"source": "Calendar history", "contract": "event"}
+    ],
+    "outputs": [
+      {"artifact": "data/people.json (rel block)", "contract": "person.v1"}
+    ],
+    "escalates_when": [
+      "a person tiered 'core' passes 1.5x their cadence",
+      "a portfolio founder goes quiet for more than 30 days"
+    ],
+    "human_in_loop": "It never sends a 'just checking in' on anyone's behalf. It says who to call."
+  },
+  {
+    "id": "agt_projects",
+    "name": "Project Tracker",
+    "feeds": ["projects", "brief"],
+    "autonomy": "flags",
+    "schedule": {"label": "daily 05:30 ET", "trigger": "status change or due date inside 7 days"},
+    "does": "Keeps the running list of special projects and events honest: what moved, what did not, and specifically what is blocked on the partner rather than on someone else. The last distinction is the whole value.",
+    "inputs": [
+      {"source": "Project docs and trackers", "contract": "note"},
+      {"source": "data/threads.json", "contract": "thread.v1"}
+    ],
+    "outputs": [
+      {"artifact": "data/projects.json", "contract": "project.v1"}
+    ],
+    "escalates_when": [
+      "a project is blocked on the principal for more than 3 days",
+      "a due date passes without a status change"
+    ],
+    "human_in_loop": "Status is proposed from evidence, confirmed by the owner."
+  },
+  {
+    "id": "agt_brief",
+    "name": "Morning Brief",
+    "feeds": ["brief"],
+    "autonomy": "acts",
+    "schedule": {"label": "06:40 ET, daily", "trigger": "scheduled"},
+    "does": "Compiles the other six into one page: the decisions only a partner can make, what is urgent, the day ahead, and what is drifting. Contains no original content — every line is an aggregate with a link back to the module that owns it, which is what stops the brief and the modules disagreeing.",
+    "inputs": [
+      {"source": "all module outputs", "contract": "*.v1"}
+    ],
+    "outputs": [
+      {"artifact": "docs/index.html", "contract": "html"}
+    ],
+    "escalates_when": [
+      "a decision deadline falls inside 48 hours",
+      "the brief would be empty, which means something upstream failed"
+    ],
+    "human_in_loop": "This is the one agent that acts without review — because the only thing it does is arrange what the others already produced."
+  }
+]

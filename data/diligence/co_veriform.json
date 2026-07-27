@@ -1,0 +1,57 @@
+{
+  "company": "co_veriform",
+  "generated_by": "agt_diligence",
+  "generated_at": "2026-07-27",
+  "confidence": "medium",
+  "headline": "Strong founder-market fit, honest early traction, and a valuation that only works if this is a category rather than a feature.",
+  "sections": [
+    {
+      "h": "What they do",
+      "body": "Veriform sits on top of a company's cloud accounts, HR system, and code host, and continuously collects the evidence an auditor asks for. The pitch to a 30-person company is that SOC 2 stops being a two-month fire drill and becomes something that is simply always true. Pricing is $1,100/month flat, no per-seat component."
+    },
+    {
+      "h": "Founders",
+      "body": "Sasha Lin (per_sasha_lin) previously built and sold a vendor-security-review tool to one of the incumbents in this space, where she then spent 19 months watching that incumbent fail to serve anyone under 200 employees. That is the entire thesis, and she has earned the right to it. Marcus Oyelaran (per_marcus_oyelaran) was employee four on an infrastructure team that ran audit tooling at scale.\n\nThe pair have worked together before. In a reference call, a former colleague described Sasha as the rare founder who ships and sells in the same week."
+    },
+    {
+      "h": "Traction",
+      "bullets": [
+        "$40K MRR, up from $12K in January — 3.3x in seven months",
+        "31 paying customers, all inbound, no outbound motion yet",
+        "Zero churn to date, though the oldest cohort is only 11 months old",
+        "Median deal cycle 9 days, which is the number that should be paid attention to"
+      ]
+    },
+    {
+      "h": "The market question",
+      "body": "This is where the memo gets uncomfortable. Compliance automation for companies under 50 people is a real pain and an unclear market. The incumbents deliberately ignore this segment because the contract values do not justify their sales motion — which is Veriform's opening, but it is also evidence about the size of the prize.\n\nThe optimistic read: every seed-stage company selling to enterprise now needs SOC 2 eighteen months earlier than it used to, so the segment is growing faster than the overall market. The pessimistic read: this is a $200M category and a $22M post prices it like a $1B one."
+    },
+    {
+      "h": "Competition",
+      "bullets": [
+        "Two incumbents own the 200+ employee segment and are structurally uninterested below it",
+        "Three seed-stage competitors, one of which raised $8M in May at a similar stage",
+        "The real competitor is a spreadsheet and a contractor, which is what 60% of Veriform's customers were using before"
+      ]
+    },
+    {
+      "h": "What would have to be true",
+      "bullets": [
+        "That the sub-50 segment expands rather than graduating into the incumbents at 200 people",
+        "That the 9-day deal cycle holds as the price rises past $1,500/month",
+        "That continuous evidence collection stays a wedge and does not commoditise into a checkbox on someone else's platform"
+      ]
+    }
+  ],
+  "open_questions": [
+    "What happens to a customer at 200 employees — do they graduate to an incumbent, and has that happened yet?",
+    "The 31 customers are all inbound. What is the cost of the 32nd once inbound is saturated?",
+    "Marcus is the only person who can touch the evidence pipeline. What is the plan for that?"
+  ],
+  "sources": [
+    "Founder-provided metrics deck, Jul 22",
+    "Two customer reference calls, Jul 24 and Jul 25",
+    "Public pricing pages for four named competitors",
+    "One former-colleague reference on Sasha, arranged via per_dana_ovadia"
+  ]
+}

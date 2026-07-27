@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build · Chief of Staff — synthetic demo</title>
+<meta name="description" content="Synthetic demonstration data. Every company, founder, message, meeting, and project on this site is invented for the demo. No First Round portfolio company, employee, or communication appears anywhere in it.">
+<meta name="robots" content="noindex">
+<style>
+:root {
+  --bg: #f4f5f8;
+  --surface: #ffffff;
+  --surface-2: #fafbfd;
+  --surface-3: #f1f3f7;
+  --line: #e5e8ee;
+  --line-2: #d3d8e2;
+  --ink: #10131c;
+  --ink-2: #565d70;
+  --ink-3: #8b93a6;
+  --accent: #4b48e0;
+  --accent-2: #6d6afc;
+  --accent-soft: #eeeeff;
+  --accent-line: #cdccfb;
+  --r: #e11d48; --r-soft: #fff1f3; --r-line: #fbcfd8;
+  --a: #c2560c; --a-soft: #fff5ec; --a-line: #fbd9bd;
+  --b: #1d63d8; --b-soft: #eef4ff; --b-line: #c6dbfd;
+  --g: #08795a; --g-soft: #eafaf4; --g-line: #b7e8d7;
+  --n: #6b7280; --n-soft: #f2f4f7; --n-line: #e2e6ed;
+  --nav-bg: #12141d;
+  --nav-bg-2: #191c27;
+  --nav-ink: #9aa1b4;
+  --nav-line: #262a38;
+  --sh1: 0 1px 2px rgba(16,19,28,.06);
+  --sh2: 0 4px 16px rgba(16,19,28,.09);
+  --sh3: 0 12px 34px rgba(16,19,28,.14);
+  --side: 232px;
+  --rad: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: Inter, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13.5px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+a { color: inherit; text-decoration: none; }
+svg { display: block; }
+::selection { background: var(--accent-soft); }
+
+/* ============================ shell ============================ */
+.shell { display: flex; min-height: 100vh; }
+
+.side {
+  width: var(--side); flex: none; background: var(--nav-bg); color: #fff;
+  position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column;
+  z-index: 40;
+}
+.side-top { padding: 16px 16px 12px; border-bottom: 1px solid var(--nav-line); }
+.mark { display: flex; align-items: center; gap: 9px; }
+.mark-badge {
+  width: 26px; height: 26px; border-radius: 8px; flex: none;
+  background: linear-gradient(145deg, var(--accent-2), var(--accent));
+  display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff;
+  box-shadow: 0 2px 8px rgba(75,72,224,.45);
+}
+.mark-name { font-size: 13.5px; font-weight: 650; letter-spacing: -.01em; color: #fff; }
+.mark-sub { font-size: 11px; color: var(--nav-ink); margin-top: 1px; }
+
+.side-nav { padding: 10px 10px; flex: 1; overflow-y: auto; }
+.side-nav .grp {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: #5d6479; padding: 12px 8px 6px;
+}
+.side-nav a {
+  display: flex; align-items: center; gap: 10px; padding: 7px 9px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--nav-ink); margin-bottom: 1px;
+}
+.side-nav a svg { width: 16px; height: 16px; flex: none; stroke: currentColor;
+                  stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.side-nav a:hover { background: var(--nav-bg-2); color: #e8eaf1; }
+.side-nav a.on { background: var(--accent); color: #fff; box-shadow: 0 2px 10px rgba(75,72,224,.4); }
+.side-nav a .cnt {
+  margin-left: auto; font-size: 11px; font-weight: 600; color: #6f778c;
+  font-variant-numeric: tabular-nums;
+}
+.side-nav a.on .cnt { color: rgba(255,255,255,.85); }
+
+.side-foot { padding: 12px 14px 14px; border-top: 1px solid var(--nav-line); }
+.who-chip { display: flex; align-items: center; gap: 9px; }
+.who-chip .nm { font-size: 12.5px; font-weight: 600; color: #e8eaf1; }
+.who-chip .rl { font-size: 11px; color: #6f778c; }
+
+.main { margin-left: var(--side); flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--line);
+  padding: 13px 26px 12px; display: flex; align-items: center; gap: 14px;
+}
+.topbar h1 { font-size: 16px; font-weight: 680; letter-spacing: -.02em; }
+.topbar .sub { font-size: 12.5px; color: var(--ink-3); margin-top: 1px; }
+.topbar .right { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+.demo-chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600;
+  color: var(--a); background: var(--a-soft); border: 1px solid var(--a-line);
+  border-radius: 999px; padding: 3px 10px 3px 8px; white-space: nowrap;
+}
+.demo-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--a); }
+.stamp { font-size: 11.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.content { padding: 20px 26px 64px; flex: 1; }
+.lede { font-size: 13.5px; color: var(--ink-2); max-width: 74ch; margin-bottom: 18px; }
+
+/* ============================ primitives ============================ */
+.panelbox { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad); box-shadow: var(--sh1); }
+.blk { margin-top: 22px; }
+.blk-h { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.blk-h h2 { font-size: 12.5px; font-weight: 700; letter-spacing: .02em; }
+.blk-h .n { font-size: 11.5px; font-weight: 600; color: var(--ink-3); background: var(--surface-3);
+            border-radius: 999px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
+.blk-h .note { font-size: 12.5px; color: var(--ink-3); margin-left: auto; }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 650;
+  border-radius: 6px; padding: 2px 7px; border: 1px solid; white-space: nowrap; letter-spacing: .005em;
+}
+.tag.t-r { color: var(--r); background: var(--r-soft); border-color: var(--r-line); }
+.tag.t-a { color: var(--a); background: var(--a-soft); border-color: var(--a-line); }
+.tag.t-b { color: var(--b); background: var(--b-soft); border-color: var(--b-line); }
+.tag.t-g { color: var(--g); background: var(--g-soft); border-color: var(--g-line); }
+.tag.t-n { color: var(--n); background: var(--n-soft); border-color: var(--n-line); }
+.tag.t-ac { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+.tag.dot::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+.av {
+  width: 26px; height: 26px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  font-size: 10.5px; font-weight: 700; color: #fff; letter-spacing: .01em;
+}
+.av.sm { width: 21px; height: 21px; font-size: 9px; }
+.av.lg { width: 34px; height: 34px; font-size: 12px; }
+.avstack { display: flex; }
+.avstack .av { margin-left: -6px; box-shadow: 0 0 0 2px var(--surface); }
+.avstack .av:first-child { margin-left: 0; }
+
+.meter { height: 5px; border-radius: 3px; background: var(--surface-3); overflow: hidden; }
+.meter > i { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.meter.t-r > i { background: var(--r); } .meter.t-a > i { background: var(--a); }
+.meter.t-g > i { background: var(--g); } .meter.t-b > i { background: var(--b); }
+.meter.t-n > i { background: var(--n-line); }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+       padding: 13px 15px 14px; box-shadow: var(--sh1); position: relative; overflow: hidden; }
+.kpi::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--line-2); }
+.kpi.t-r::after { background: var(--r); } .kpi.t-a::after { background: var(--a); }
+.kpi.t-g::after { background: var(--g); } .kpi.t-b::after { background: var(--b); }
+.kpi.t-ac::after { background: var(--accent); }
+.kpi .k { font-size: 11px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
+.kpi .v { margin-top: 6px; font-size: 27px; font-weight: 700; letter-spacing: -.035em;
+          line-height: 1; font-variant-numeric: tabular-nums; }
+.kpi .s { margin-top: 5px; font-size: 12px; color: var(--ink-3); }
+
+.seg { display: inline-flex; background: var(--surface-3); border: 1px solid var(--line);
+       border-radius: 9px; padding: 2px; gap: 2px;
+       max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.seg::-webkit-scrollbar { display: none; }
+.seg button { flex: none; font-size: 12.5px; font-weight: 550; color: var(--ink-2);
+              padding: 4px 11px; border-radius: 7px; white-space: nowrap; }
+.seg button:hover { color: var(--ink); }
+.seg button.active { background: var(--surface); color: var(--ink); box-shadow: var(--sh1); font-weight: 600; }
+.seg button .n { font-variant-numeric: tabular-nums; opacity: .6; margin-left: 4px; }
+
+.bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.srch { position: relative; margin-left: auto; }
+.srch input {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 9px;
+  padding: 6px 11px 6px 30px; font-size: 12.5px; width: 230px; outline: none; box-shadow: var(--sh1);
+}
+.srch input:focus { border-color: var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft); }
+.srch svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
+            width: 14px; height: 14px; stroke: var(--ink-3); stroke-width: 2; fill: none; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 550;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+  padding: 5px 11px; color: var(--ink-2); box-shadow: var(--sh1);
+}
+.btn:hover { border-color: var(--line-2); color: var(--ink); }
+.btn.on { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent); }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: #fff;
+           box-shadow: 0 2px 8px rgba(75,72,224,.35); }
+.btn.pri:hover { background: #3f3cd4; color: #fff; }
+
+.lnk { color: var(--accent); font-weight: 550; }
+.lnk:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+.empty { padding: 44px 20px; text-align: center; color: var(--ink-3); }
+.empty .big { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.noresult { display: none; padding: 40px 10px; text-align: center; color: var(--ink-3); font-size: 13px; }
+
+.callout { border-radius: var(--rad); padding: 13px 15px; border: 1px solid var(--accent-line);
+           background: linear-gradient(180deg, #f7f7ff, #f2f2ff); }
+.callout .h { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .03em;
+              text-transform: uppercase; margin-bottom: 4px; }
+
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+       background: var(--surface-3); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; }
+pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+      line-height: 1.65; background: #14161f; color: #d6d9e3; border-radius: 10px;
+      padding: 14px 16px; overflow-x: auto; }
+pre code { background: none; border: none; padding: 0; color: inherit; }
+pre .c { color: #6f7891; } pre .k { color: #a5a2ff; } pre .s { color: #7fd0a8; }
+
+/* ============================ tables ============================ */
+.tbl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+       box-shadow: var(--sh1); overflow: hidden; }
+.tbl-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th { text-align: left; font-size: 11px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase;
+     color: var(--ink-3); white-space: nowrap; padding: 10px 14px; background: var(--surface-2);
+     border-bottom: 1px solid var(--line); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.nw { white-space: nowrap; }
+td .t1 { font-weight: 600; }
+td .t2 { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); }
+
+/* ============================ board (Deal Flow) ============================ */
+.board { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(262px, 1fr);
+         gap: 12px; overflow-x: auto; padding-bottom: 8px; align-items: start; }
+.col { background: var(--surface-3); border: 1px solid var(--line); border-radius: var(--rad); padding: 9px; }
+.col-h { display: flex; align-items: center; gap: 7px; padding: 3px 5px 10px; }
+.col-h .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.col-h .nm { font-size: 12px; font-weight: 700; letter-spacing: .01em; }
+.col-h .n { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--ink-3);
+            background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+            padding: 0 7px; font-variant-numeric: tabular-nums; }
+.col-list { display: flex; flex-direction: column; gap: 8px; }
+.dcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+         padding: 11px 12px 10px; box-shadow: var(--sh1); scroll-margin-top: 110px;
+         transition: box-shadow .13s ease, transform .13s ease, border-color .13s ease; }
+.dcard:hover { box-shadow: var(--sh2); transform: translateY(-1px); }
+.dcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.dcard .top { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+.dcard .nm { font-size: 13.5px; font-weight: 680; letter-spacing: -.012em; }
+.dcard .ol { margin-top: 3px; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+.dcard .mrow { margin-top: 9px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+.dcard .rnd { font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.dcard .sc { margin-top: 9px; display: flex; align-items: center; gap: 8px; }
+.dcard .sc .meter { flex: 1; }
+.dcard .sc .v { font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.dcard .foot { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line);
+               display: flex; align-items: center; gap: 8px; }
+.dcard .foot .why { font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis;
+                    white-space: nowrap; }
+
+/* ============================ master / detail (Inbox) ============================ */
+.md { display: grid; grid-template-columns: 372px minmax(0, 1fr); gap: 12px; align-items: start; }
+.md-list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+           box-shadow: var(--sh1); overflow: hidden; }
+.trow { display: flex; gap: 10px; padding: 11px 13px; border-bottom: 1px solid var(--line);
+        cursor: pointer; border-left: 3px solid transparent; }
+.trow:last-child { border-bottom: none; }
+.trow:hover { background: var(--surface-2); }
+.trow.sel { background: var(--accent-soft); border-left-color: var(--accent); }
+.trow .body { min-width: 0; flex: 1; }
+.trow .l1 { display: flex; align-items: center; gap: 6px; }
+.trow .nm { font-size: 12.8px; font-weight: 650; letter-spacing: -.008em; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; }
+.trow .tm { margin-left: auto; font-size: 11px; color: var(--ink-3); white-space: nowrap;
+            font-variant-numeric: tabular-nums; }
+.trow .sj { margin-top: 2px; font-size: 12.5px; color: var(--ink-2); white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; }
+.trow .as { margin-top: 3px; font-size: 12px; color: var(--ink-3); display: -webkit-box;
+            -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pdot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.pdot.p1 { background: var(--r); } .pdot.p2 { background: var(--a); }
+.pdot.p3 { background: var(--b); } .pdot.p4 { background: var(--line-2); }
+
+.md-pane { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+           box-shadow: var(--sh1); padding: 18px 20px 20px; }
+.md-pane .ph { display: flex; align-items: flex-start; gap: 11px; padding-bottom: 13px;
+               border-bottom: 1px solid var(--line); }
+.md-pane .ph .sj { font-size: 15.5px; font-weight: 680; letter-spacing: -.018em; }
+.md-pane .ph .fr { margin-top: 3px; font-size: 12.5px; color: var(--ink-3); }
+.md-pane .tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 13px 0 0; }
+.md-pane h4 { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+              color: var(--ink-3); margin: 16px 0 5px; }
+.md-pane .quote { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+                  padding: 12px 14px; font-size: 13px; line-height: 1.62; white-space: pre-wrap; }
+.md-pane .rd { font-size: 13.2px; line-height: 1.65; color: var(--ink-2); }
+.md-pane .rd b { color: var(--ink); font-weight: 650; }
+.draft { border: 1px solid var(--accent-line); background: #fbfbff; border-radius: 10px; overflow: hidden; }
+.draft-h { display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+           background: var(--accent-soft); border-bottom: 1px solid var(--accent-line); }
+.draft-h .t { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+              color: var(--accent); }
+.draft-b { padding: 13px 14px; font-size: 13px; line-height: 1.68; white-space: pre-wrap; }
+.flaglist { margin: 0 0 0 16px; font-size: 12.8px; color: var(--ink-2); }
+.flaglist li { margin-top: 3px; }
+
+/* ============================ timeline (Day) ============================ */
+.tl { position: relative; padding-left: 74px; }
+.tl::before { content: ""; position: absolute; left: 66px; top: 6px; bottom: 6px; width: 2px;
+              background: var(--line); }
+.slot { position: relative; margin-bottom: 12px; }
+.slot .clock { position: absolute; left: -74px; top: 12px; width: 56px; text-align: right;
+               font-size: 12px; font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.slot .clock .dur { display: block; font-size: 10.5px; font-weight: 500; color: var(--ink-3); margin-top: 1px; }
+.slot::before { content: ""; position: absolute; left: -12px; top: 17px; width: 9px; height: 9px;
+                border-radius: 50%; background: var(--surface); border: 2px solid var(--line-2); z-index: 1; }
+.slot.t-r::before { border-color: var(--r); } .slot.t-a::before { border-color: var(--a); }
+.slot.t-b::before { border-color: var(--b); } .slot.t-g::before { border-color: var(--g); }
+.slot.t-ac::before { border-color: var(--accent); }
+.mcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 13px 15px 12px; scroll-margin-top: 110px; }
+.mcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.mcard .ttl { font-size: 14px; font-weight: 670; letter-spacing: -.015em; }
+.mcard .obj { margin-top: 5px; font-size: 12.8px; color: var(--ink-2); }
+.mcard .who { margin-top: 9px; display: flex; align-items: center; gap: 7px; }
+.mcard .foot { margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--line);
+               display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+
+/* ============================ people grid (Network) ============================ */
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 11px; }
+.pcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 13px 14px 12px; scroll-margin-top: 110px; }
+.pcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.pcard .hd { display: flex; align-items: center; gap: 9px; }
+.pcard .nm { font-size: 13.5px; font-weight: 660; letter-spacing: -.012em; }
+.pcard .ti { font-size: 12px; color: var(--ink-3); margin-top: 1px; }
+.pcard .note { margin-top: 10px; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+.pcard .cad { margin-top: 11px; }
+.pcard .cadrow { display: flex; align-items: center; justify-content: space-between;
+                 font-size: 11.5px; color: var(--ink-3); margin-bottom: 4px; }
+.pcard .foot { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--line);
+               display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+/* ============================ doc view (Diligence) ============================ */
+.doc { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 14px; align-items: start; }
+.doc-side { position: sticky; top: 82px; }
+.doc-side .ttl { font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+                 color: var(--ink-3); padding: 0 4px 7px; }
+.doc-side a { display: block; padding: 7px 10px; border-radius: 8px; font-size: 12.8px;
+              font-weight: 550; color: var(--ink-2); border-left: 2px solid transparent; }
+.doc-side a:hover { background: var(--surface-3); color: var(--ink); }
+.doc-side a.on { background: var(--accent-soft); color: var(--accent); border-left-color: var(--accent); }
+.doc-side a .s { display: block; font-size: 11px; font-weight: 500; color: var(--ink-3); margin-top: 1px; }
+.doc-side a.on .s { color: var(--accent); opacity: .75; }
+.brief { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 22px 26px 24px; }
+.brief .bh { padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+.brief .bh .co { font-size: 19px; font-weight: 700; letter-spacing: -.028em; }
+.brief .bh .hl { margin-top: 6px; font-size: 13.8px; color: var(--ink-2); line-height: 1.55; max-width: 70ch; }
+.brief .bh .meta { margin-top: 11px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+.brief section { margin-top: 20px; }
+.brief section h3 { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                    color: var(--ink-3); margin-bottom: 7px; }
+.brief section p { font-size: 13.5px; line-height: 1.68; max-width: 72ch; }
+.brief section p + p { margin-top: 9px; }
+.brief section ul { margin-left: 18px; font-size: 13.4px; line-height: 1.6; max-width: 72ch; }
+.brief section li { margin-top: 5px; }
+.qbox { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; }
+.srcs { font-size: 12.3px; color: var(--ink-3); line-height: 1.6; }
+.srcs li { margin-top: 3px; }
+
+/* ============================ agent cards (Build) ============================ */
+.agrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.acard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
+         box-shadow: var(--sh1); padding: 15px 16px 14px; scroll-margin-top: 110px; }
+.acard .hd { display: flex; align-items: center; gap: 9px; }
+.acard .nm { font-size: 13.8px; font-weight: 670; letter-spacing: -.014em; }
+.acard .does { margin-top: 9px; font-size: 12.8px; color: var(--ink-2); line-height: 1.58; }
+.acard .sch { margin-top: 11px; font-size: 12px; color: var(--ink-3); display: flex; gap: 6px;
+              align-items: baseline; }
+.acard .sch b { color: var(--ink-2); font-weight: 600; }
+.acard .io { margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12.2px;
+             color: var(--ink-3); line-height: 1.6; }
+.acard .io b { color: var(--ink-2); font-weight: 600; }
+.flow { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding: 4px 0 10px; }
+.fstep { flex: 1; min-width: 132px; background: var(--surface); border: 1px solid var(--line);
+         border-radius: 10px; padding: 11px 12px; box-shadow: var(--sh1); }
+.fstep .n { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+            color: var(--accent); }
+.fstep .t { margin-top: 4px; font-size: 12.8px; font-weight: 620; }
+.fstep .d { margin-top: 3px; font-size: 11.8px; color: var(--ink-3); line-height: 1.5; }
+.farrow { flex: none; width: 26px; display: grid; place-items: center; color: var(--line-2);
+          font-size: 15px; }
+
+/* ============================ disclosure ============================ */
+.dtl { display: none; }
+.dtl.open { display: block; }
+.dtl-in { margin-top: 10px; padding: 12px 13px; background: var(--surface-2);
+          border: 1px solid var(--line); border-radius: 10px; font-size: 12.8px; line-height: 1.62; }
+.dtl-in h4 { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+             color: var(--ink-3); margin-bottom: 4px; }
+.dtl-in h4:not(:first-child) { margin-top: 12px; }
+.dtl-in ul { margin: 0 0 0 16px; }
+.dtl-in li { margin-top: 3px; }
+.dtl-in p + p { margin-top: 7px; }
+.dtl-in b { font-weight: 650; }
+
+/* ============================ footer ============================ */
+.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
+        font-size: 11.5px; color: var(--ink-3); line-height: 1.7; max-width: 96ch; }
+
+/* ============================ responsive ============================ */
+@media (max-width: 1180px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) {
+  :root { --side: 0px; }
+  .side { position: static; width: 100%; flex-direction: column; }
+  .shell { flex-direction: column; }
+  .side-nav { display: flex; gap: 4px; overflow-x: auto; padding: 8px 10px; }
+  .side-nav .grp { display: none; }
+  .side-nav a { white-space: nowrap; margin-bottom: 0; }
+  .side-nav a .cnt { display: none; }
+  .side-foot { display: none; }
+  .main { margin-left: 0; }
+  .topbar { padding: 11px 14px; }
+  .content { padding: 16px 14px 48px; }
+  .stamp { display: none; }
+  .kpis { grid-template-columns: repeat(2, 1fr); gap: 9px; }
+  .kpi .v { font-size: 23px; }
+  .srch { margin-left: 0; width: 100%; }
+  .srch input { width: 100%; }
+  .board { grid-auto-flow: row; grid-auto-columns: auto; }
+  .md, .doc { grid-template-columns: minmax(0, 1fr); }
+  .doc-side { position: static; }
+  .doc-side a { display: inline-block; }
+  .md-list { max-height: 400px; overflow-y: auto; }
+  .md-pane { padding: 15px 15px 17px; }
+  .brief { padding: 17px 16px 19px; }
+  .tl { padding-left: 0; }
+  .tl::before { display: none; }
+  .slot::before { display: none; }
+  .slot .clock { position: static; width: auto; text-align: left; margin-bottom: 5px; }
+  .slot .clock .dur { display: inline; margin-left: 6px; }
+}
+</style>
+</head>
+<body data-view="build">
+<div class="shell">
+<aside class="side">
+  <div class="side-top">
+    <div class="mark">
+      <div class="mark-badge">CS</div>
+      <div>
+        <div class="mark-name">Chief of Staff</div>
+        <div class="mark-sub">First Round</div>
+      </div>
+    </div>
+  </div>
+  <nav class="side-nav">
+    <div class="grp">Today</div>
+    <a class="" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v4h-7zM14 11h7v10h-7zM3 14h7v7H3z"/></svg><span>Brief</span><span class="cnt">4</span></a><a class="" href="dealflow.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h4v15H4zM10 4h4v9h-4zM16 4h4v12h-4z"/></svg><span>Deal Flow</span><span class="cnt">4</span></a><a class="" href="diligence.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3H7a1 1 0 00-1 1v16a1 1 0 001 1h10a1 1 0 001-1V8zM13 3v5h5M9 13h6M9 17h4"/></svg><span>Diligence</span><span class="cnt">3</span></a><a class="" href="inbox.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h4l1.5 3h5L16 13h4M4 13l2.4-8h11.2L20 13v6H4z"/></svg><span>Inbox</span><span class="cnt">8</span></a><a class="" href="day.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M9 3v4M15 3v4M8 14h3"/></svg><span>Day</span><span class="cnt">6</span></a><a class="" href="network.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 10a3 3 0 100-6 3 3 0 000 6zM3.5 20a5.5 5.5 0 0111 0M17.5 11.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM16.5 20h4a4 4 0 00-3-3.87"/></svg><span>Network</span><span class="cnt">2</span></a><a class="" href="projects.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM9 11l2.2 2.2L16 8.5M9 16h6"/></svg><span>Projects</span><span class="cnt">2</span></a><a class="on" href="build.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 100-6 3 3 0 000 6zM12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg><span>Build</span><span class="cnt">7</span></a>
+  </nav>
+  <div class="side-foot">
+    <div class="who-chip">
+      <div class="av lg" style="background:#3f3cd4">JK</div>
+      <div>
+        <div class="nm">Josh Kopelman</div>
+        <div class="rl">Partner · First Round</div>
+      </div>
+    </div>
+  </div>
+</aside>
+<div class="main">
+  <header class="topbar">
+    <div>
+      <h1>Build</h1>
+      <div class="sub">The agents behind every other tab — what they own, what they may do alone, and what has to escalate</div>
+    </div>
+    <div class="right">
+      <span class="demo-chip">Demo data</span>
+      <span class="stamp">Tue Jul 28, 06:40 ET</span>
+    </div>
+  </header>
+  <main class="content">
+<div class="kpis"><div class="kpi t-ac"><div class="k">Agents running</div><div class="v">7</div><div class="s">one per surface, plus the compiler</div></div><div class="kpi t-b"><div class="k">Escalation rules</div><div class="v">16</div><div class="s">conditions that force a human in</div></div><div class="kpi t-g"><div class="k">Act without review</div><div class="v">1/7</div><div class="s">the rest draft or flag only</div></div><div class="kpi t-n"><div class="k">Entities in the graph</div><div class="v">62</div><div class="s">103 references between them</div></div></div><div class="blk"><div class="blk-h"><h2>How a message becomes a decision</h2><span class="note">Four stages, seven agents</span></div><div class="flow"><div class="fstep"><div class="n">01</div><div class="t">Sources</div><div class="d">Mail, calendar, CRM, documents. Read-only, always.</div></div><div class="farrow">→</div><div class="fstep"><div class="n">02</div><div class="t">Agents</div><div class="d">Seven of them. Each owns one surface and one output file.</div></div><div class="farrow">→</div><div class="fstep"><div class="n">03</div><div class="t">Contracts</div><div class="d">Every agent emits validated JSON. Off-schema fails the build.</div></div><div class="farrow">→</div><div class="fstep"><div class="n">04</div><div class="t">Views</div><div class="d">A deterministic renderer turns the JSON into these pages.</div></div></div></div><div class="blk"><div class="blk-h"><h2>The agents</h2><span class="n">7</span></div><div class="agrid"><article class="acard" id="agt_intake"><div class="hd"><div style="min-width:0"><div class="nm">Inbound Intake</div><div style="font-size:11.5px;color:var(--ink-3);margin-top:2px">Feeds Dealflow · Brief</div></div><span style="margin-left:auto"><span class="tag t-a">Flags only</span></span></div><div class="does">Reads every inbound pitch, extracts company, round, ask, and source, scores it against the thesis on four axes, and files it into the pipeline. Never replies, never moves a deal past Screening on its own.</div><div class="sch"><b>Runs</b> every 15 min, 06:00–21:00 ET</div><div class="sch"><b>On</b> new mail in the deals alias</div><div class="io"><b>Reads</b> Mail — deals alias, CRM — company records<br><b>Writes</b> <code>data/deals.json</code></div><div class="io"><b>Escalates when</b><ul><li>score &gt;= 8</li><li>the sender is a person tiered &#x27;core&#x27; in the network</li><li>the round closes inside 7 days</li></ul></div><div class="io"><b>Human in the loop.</b> Every stage change past Screening is made by a human. The agent proposes, it does not promote.</div></article><article class="acard" id="agt_diligence"><div class="hd"><div style="min-width:0"><div class="nm">Diligence Writer</div><div style="font-size:11.5px;color:var(--ink-3);margin-top:2px">Feeds Diligence · Dealflow</div></div><span style="margin-left:auto"><span class="tag t-b">Drafts for review</span></span></div><div class="does">Assembles the first-pass brief on a company: what they do, who the founders are, the traction as claimed, the competitive set, and — the part that matters — a &#x27;what would have to be true&#x27; section written as falsifiable statements rather than enthusiasm.</div><div class="sch"><b>Runs</b> on demand, and every Thursday 05:00 ET</div><div class="sch"><b>On</b> a deal enters Diligence</div><div class="io"><b>Reads</b> Founder-provided materials, Public web + filings, Reference call notes<br><b>Writes</b> <code>data/diligence/co_*.json</code></div><div class="io"><b>Escalates when</b><ul><li>a claimed metric cannot be corroborated from any second source</li><li>confidence lands at &#x27;low&#x27; but the deal is already past Diligence</li></ul></div><div class="io"><b>Human in the loop.</b> Every brief is labelled with a confidence level and its sources. No brief is shown without them, and no number appears that the agent could not attribute.</div></article><article class="acard" id="agt_triage"><div class="hd"><div style="min-width:0"><div class="nm">Inbox Triage</div><div style="font-size:11.5px;color:var(--ink-3);margin-top:2px">Feeds Inbox · Brief</div></div><span style="margin-left:auto"><span class="tag t-b">Drafts for review</span></span></div><div class="does">Assigns a priority and an SLA to everything that arrives, states the actual ask in one line, flags the things that look like a waste of a partner&#x27;s morning, and drafts a reply in the sender&#x27;s own register. Read-only on the mailbox — it never sends, archives, or labels.</div><div class="sch"><b>Runs</b> every 10 min, 06:00–21:00 ET</div><div class="sch"><b>On</b> new mail</div><div class="io"><b>Reads</b> Mail — primary inbox, data/people.json<br><b>Writes</b> <code>data/threads.json</code></div><div class="io"><b>Escalates when</b><ul><li>a portfolio founder writes twice without a reply</li><li>a P1 has been open longer than its SLA</li><li>the sender is owed a reply from a prior thread</li></ul></div><div class="io"><b>Human in the loop.</b> Drafts are drafts. Nothing leaves the mailbox without a human pressing send.</div></article><article class="acard" id="agt_prep"><div class="hd"><div style="min-width:0"><div class="nm">Meeting Prep</div><div style="font-size:11.5px;color:var(--ink-3);margin-top:2px">Feeds Day · Brief</div></div><span style="margin-left:auto"><span class="tag t-b">Drafts for review</span></span></div><div class="does">For every meeting on the calendar: who is in the room, why it exists, what happened last time, the two or three questions worth asking, and what would make it a wasted half hour. Pulls the open threads with each attendee so nothing is discussed twice or forgotten once.</div><div class="sch"><b>Runs</b> 17:00 ET the day before, and 60 min before any added meeting</div><div class="sch"><b>On</b> calendar change</div><div class="io"><b>Reads</b> Calendar, data/threads.json, data/diligence/<br><b>Writes</b> <code>data/meetings.json</code></div><div class="io"><b>Escalates when</b><ul><li>a meeting has no stated objective 12 hours out</li><li>an attendee is owed a reply that has not been sent</li></ul></div><div class="io"><b>Human in the loop.</b> The prep is a starting point, not a script. Nothing about it is shared outside the firm.</div></article><article class="acard" id="agt_network"><div class="hd"><div style="min-width:0"><div class="nm">Relationship Watch</div><div style="font-size:11.5px;color:var(--ink-3);margin-top:2px">Feeds Network · Brief</div></div><span style="margin-left:auto"><span class="tag t-a">Flags only</span></span></div><div class="does">Tracks the people who matter and how long it has been. Surfaces the ones who have gone past their cadence, the replies that are owed, and the shortest warm path to anyone new. Deliberately silent about people who are simply busy — the point is to catch drift, not to manufacture touchpoints.</div><div class="sch"><b>Runs</b> daily 05:30 ET</div><div class="sch"><b>On</b> cadence lapse</div><div class="io"><b>Reads</b> Mail metadata — who, when, which direction, Calendar history<br><b>Writes</b> <code>data/people.json (rel block)</code></div><div class="io"><b>Escalates when</b><ul><li>a person tiered &#x27;core&#x27; passes 1.5x their cadence</li><li>a portfolio founder goes quiet for more than 30 days</li></ul></div><div class="io"><b>Human in the loop.</b> It never sends a &#x27;just checking in&#x27; on anyone&#x27;s behalf. It says who to call.</div></article><article class="acard" id="agt_projects"><div class="hd"><div style="min-width:0"><div class="nm">Project Tracker</div><div style="font-size:11.5px;color:var(--ink-3);margin-top:2px">Feeds Projects · Brief</div></div><span style="margin-left:auto"><span class="tag t-a">Flags only</span></span></div><div class="does">Keeps the running list of special projects and events honest: what moved, what did not, and specifically what is blocked on the partner rather than on someone else. The last distinction is the whole value.</div><div class="sch"><b>Runs</b> daily 05:30 ET</div><div class="sch"><b>On</b> status change or due date inside 7 days</div><div class="io"><b>Reads</b> Project docs and trackers, data/threads.json<br><b>Writes</b> <code>data/projects.json</code></div><div class="io"><b>Escalates when</b><ul><li>a project is blocked on the principal for more than 3 days</li><li>a due date passes without a status change</li></ul></div><div class="io"><b>Human in the loop.</b> Status is proposed from evidence, confirmed by the owner.</div></article><article class="acard" id="agt_brief"><div class="hd"><div style="min-width:0"><div class="nm">Morning Brief</div><div style="font-size:11.5px;color:var(--ink-3);margin-top:2px">Feeds Brief</div></div><span style="margin-left:auto"><span class="tag t-g">Acts alone</span></span></div><div class="does">Compiles the other six into one page: the decisions only a partner can make, what is urgent, the day ahead, and what is drifting. Contains no original content — every line is an aggregate with a link back to the module that owns it, which is what stops the brief and the modules disagreeing.</div><div class="sch"><b>Runs</b> 06:40 ET, daily</div><div class="sch"><b>On</b> scheduled</div><div class="io"><b>Reads</b> all module outputs<br><b>Writes</b> <code>docs/index.html</code></div><div class="io"><b>Escalates when</b><ul><li>a decision deadline falls inside 48 hours</li><li>the brief would be empty, which means something upstream failed</li></ul></div><div class="io"><b>Human in the loop.</b> This is the one agent that acts without review — because the only thing it does is arrange what the others already produced.</div></article></div></div><div class="blk"><div class="blk-h"><h2>Operating rules</h2></div><div class="callout"><div class="h">The rules every agent runs under</div><ul><li>Read-only on every source. Nothing sends, archives, deletes, or books.</li><li>Drafts are drafts. A reply leaves the mailbox only when a human presses send.</li><li>Nothing is promoted past a screening stage without a person doing it.</li><li>Every generated figure carries its source. What cannot be attributed is left out, not estimated.</li><li>Off-schema output fails the build rather than rendering a broken page.</li></ul></div></div><div class="blk"><div class="blk-h"><h2>Data contracts</h2><span class="note">Generated from the validator — this table cannot drift from the schema</span></div><div class="tbl"><div class="tbl-scroll"><table><thead><tr><th class="nw">Contract</th><th class="nw">Field</th><th>Shape</th><th class="nw"></th></tr></thead><tbody><tr><td class="nw"><span class="t1">deal.v1</span></td><td class="nw"><code>id</code></td><td class="">id</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>company</code></td><td class="">reference → co_</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>stage</code></td><td class="">one of: New, Screening, Diligence, Partner review …</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>score</code></td><td class="">integer 0–10</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>score_breakdown</code></td><td class="">structured</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>source</code></td><td class="">structured</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>owner</code></td><td class="">reference → per_</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>first_seen</code></td><td class="">ISO date</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>updated</code></td><td class="">ISO date</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>round</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>ask</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>thesis_fit</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>next_step</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>needs_decision</code></td><td class="">object · decision</td><td class="nw"><span class="tag t-n">optional</span></td></tr><tr><td class="nw"><span class="t1">thread.v1</span></td><td class="nw"><code>id</code></td><td class="">id</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>from</code></td><td class="">reference → per_</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>subject</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>received</code></td><td class="">ISO date</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>priority</code></td><td class="">one of: 1, 2, 3, 4</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>sla</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>action</code></td><td class="">one of: respond_now, batch, delegate, decline …</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>ask</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>why</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>red_flags</code></td><td class="">list of text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>excerpt</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>draft_reply</code></td><td class="">text</td><td class="nw"><span class="tag t-n">optional</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>about</code></td><td class="">list of structured</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>needs_decision</code></td><td class="">object · decision</td><td class="nw"><span class="tag t-n">optional</span></td></tr><tr><td class="nw"><span class="t1">meeting.v1</span></td><td class="nw"><code>id</code></td><td class="">id</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>start</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>end</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>title</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>kind</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>attendees</code></td><td class="">list of per_ references</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>about</code></td><td class="">list of structured</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>prep</code></td><td class="">structured</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>needs_decision</code></td><td class="">object · decision</td><td class="nw"><span class="tag t-n">optional</span></td></tr><tr><td class="nw"><span class="t1">person.v1</span></td><td class="nw"><code>id</code></td><td class="">id</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>name</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>title</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>org</code></td><td class="">reference → co_</td><td class="nw"><span class="tag t-n">optional</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>email</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>location</code></td><td class="">text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>tags</code></td><td class="">list of text</td><td class="nw"><span class="tag t-b">required</span></td></tr><tr><td class="nw"><span style="color:var(--line-2)">·</span></td><td class="nw"><code>rel</code></td><td class="">object · rel</td><td class="nw"><span class="tag t-n">optional</span></td></tr></tbody></table></div></div></div><div class="blk"><div class="blk-h"><h2>The stack</h2></div><p>No framework, no database, no build step, no network at view time. The data is JSON on disk, the renderer is standard-library Python, and the output is static HTML that opens from a file. That is a deliberate choice rather than a limitation: a tool a partner relies on daily should have as few things that can break as possible.</p><pre><code>data/*.json        the world — one file per noun
+render/validate.py  the schema, and the thing that enforces it
+render/model.py     id resolution and the backlink index
+render/views/*.py   one module per tab
+make.py             load → validate → render → write
+
+<span class="c"># prove the pages are generated, not hand-written</span>
+python make.py --check</code></pre></div><div class="blk"><div class="blk-h"><h2>Where this should not be trusted</h2><span class="note">The part usually left out</span></div><p>Anything that claims to run a partner&#x27;s day should be equally clear about where it should not be trusted. This is the honest list.</p><ul><li>Priority is a judgment, and the judgment is mine. The Kettle thread on the Inbox tab is ranked P1 on inference, not evidence — a late-night second ask about a cap table. That inference could be wrong, and the cost of being wrong in that direction is low, which is why it is ranked that way.</li><li>Relationship cadence measures contact, not closeness. Someone can be past cadence and perfectly fine. The system is deliberately quiet about people who are simply busy.</li><li>The diligence agent still runs behind a human gate. Twenty-two briefs have been read before publication and two contained a number that could not be traced to a source. Two in twenty-two is too high to remove the gate.</li><li>Nothing here reads tone. It cannot tell an anxious founder from a terse one, which is most of what matters in a portfolio relationship.</li><li>Every figure on this site is synthetic. The architecture is real; the world is invented.</li></ul></div>
+    <footer class="foot">
+      Synthetic demonstration data. Every company, founder, message, meeting, and project on this site is invented for the demo. No First Round portfolio company, employee, or communication appears anywhere in it.<br>
+      Built as a work sample for the Chief of Staff role. Every page is generated from the
+      JSON in <code>data/</code> by <code>make.py</code> — run <code>python make.py --check</code>
+      to confirm the output regenerates byte for byte.
+    </footer>
+  </main>
+</div>
+</div>
+<script>
+(function () {
+  'use strict';
+  // Each feature initialises independently: one failure cannot blank a page.
+  function safe(fn) { try { fn(); } catch (e) {} }
+  var SLUG = document.body.getAttribute('data-view') || 'x';
+
+  // --- segmented filter + search --------------------------------------------
+  safe(function () {
+    var scope = document.querySelector('[data-filterable]');
+    if (!scope) return;
+    var items = [].slice.call(scope.querySelectorAll('[data-search]'));
+    if (!items.length) return;
+    var segs = [].slice.call(document.querySelectorAll('[data-f]'));
+    var box = document.querySelector('.srch input');
+    var none = document.querySelector('.noresult');
+    var groups = [].slice.call(scope.querySelectorAll('[data-group]'));
+    var KEY = 'frc:' + SLUG + ':filter';
+    var st = { f: 'all', q: '' };
+
+    function apply() {
+      var shown = 0;
+      items.forEach(function (el) {
+        var okF = st.f === 'all' || (el.dataset.f || '').split(' ').indexOf(st.f) !== -1;
+        var okQ = !st.q || el.dataset.search.indexOf(st.q) !== -1;
+        var ok = okF && okQ;
+        el.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+      // hide a board column / section that has nothing left in it
+      groups.forEach(function (g) {
+        var live = [].slice.call(g.querySelectorAll('[data-search]'))
+          .filter(function (e) { return e.style.display !== 'none'; });
+        g.style.display = live.length ? '' : 'none';
+      });
+      if (none) none.style.display = shown ? 'none' : 'block';
+    }
+    function select(v) {
+      st.f = v;
+      segs.forEach(function (s) { s.classList.toggle('active', s.dataset.f === v); });
+      apply();
+    }
+    segs.forEach(function (s) {
+      s.addEventListener('click', function () {
+        select(s.dataset.f);
+        try { localStorage.setItem(KEY, s.dataset.f); } catch (e) {}
+      });
+    });
+    if (box) box.addEventListener('input', function () { st.q = box.value.trim().toLowerCase(); apply(); });
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (saved && segs.some(function (s) { return s.dataset.f === saved; })) select(saved);
+    else apply();
+  });
+
+  // --- disclosure ------------------------------------------------------------
+  safe(function () {
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-toggle]');
+      if (!t) return;
+      var p = document.getElementById(t.dataset.toggle);
+      if (!p) return;
+      var open = p.classList.toggle('open');
+      t.classList.toggle('on', open);
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // --- master / detail (Inbox, Diligence) ------------------------------------
+  safe(function () {
+    var panes = document.querySelector('[data-md]');
+    if (!panes) return;
+    var rows = [].slice.call(panes.querySelectorAll('[data-open]'));
+    var details = [].slice.call(panes.querySelectorAll('[data-pane]'));
+    if (!rows.length) return;
+
+    function show(id, push) {
+      var found = false;
+      details.forEach(function (d) {
+        var on = d.dataset.pane === id;
+        d.style.display = on ? '' : 'none';
+        if (on) found = true;
+      });
+      rows.forEach(function (r) { r.classList.toggle('sel', r.dataset.open === id); });
+      if (found && push) history.replaceState(null, '', '#' + id);
+      if (found && window.innerWidth <= 900) {
+        var pane = panes.querySelector('[data-pane="' + id + '"]');
+        if (pane) pane.scrollIntoView({ block: 'start' });
+      }
+      return found;
+    }
+    rows.forEach(function (r) {
+      r.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
+        show(r.dataset.open, true);
+      });
+    });
+    var start = location.hash.slice(1);
+    if (!start || !show(start, false)) show(rows[0].dataset.open, false);
+    window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+  });
+
+  // --- copy ------------------------------------------------------------------
+  safe(function () {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-copy]');
+      if (!b) return;
+      var src = document.getElementById(b.dataset.copy);
+      var txt = src ? src.innerText.trim() : '';
+      var flash = function () {
+        var old = b.innerHTML;
+        b.textContent = 'Copied';
+        setTimeout(function () { b.innerHTML = old; }, 1200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(flash, function () {});
+        return;
+      }
+      var ta = document.createElement('textarea');
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); flash(); } catch (err) {}
+      document.body.removeChild(ta);
+    });
+  });
+
+  // --- reveal a deep-linked card --------------------------------------------
+  safe(function () {
+    function reveal() {
+      var id = location.hash.slice(1);
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = '';
+      var t = el.querySelector('[data-toggle]');
+      if (t && !t.classList.contains('on')) t.click();
+    }
+    reveal();
+    window.addEventListener('hashchange', reveal);
+  });
+})();
+</script>
+</body>
+</html>
