@@ -15,6 +15,24 @@ NAV = "Deal Flow"
 TITLE = "Deal Flow"
 SUB = "Everything inbound, scored against the thesis and ranked by what it costs to be slow"
 
+ABOUT = {
+    "headline": "What is where, and what it costs to be slow",
+    "goal": ("The useful question about deal flow is not what arrived, it is what is "
+             "sitting in which stage and which one has a clock on it. A board answers "
+             "that at a glance; a list does not."),
+    "now": ("Five invented companies at different stages, with invented founders, "
+            "rounds, and scores."),
+    "live": ("The intake agent reads the deals alias every fifteen minutes, extracts "
+             "company, round, ask, and source, and scores each against the thesis. It "
+             "files, it never promotes — a human moves every stage past Screening."),
+    "does": [
+        "Filter by source or stage and search across companies, sectors, and reasoning",
+        "Open 'Why' on any card for the four-axis score breakdown and the next step",
+        "Anything needing a partner decision is lifted out of the board into a callout at the top",
+        "Jump straight from a card to that company's diligence brief",
+    ],
+}
+
 # stage -> (tone, board order)
 STAGES = [
     ("New", "b"),

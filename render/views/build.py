@@ -20,6 +20,26 @@ NAV = "Build"
 TITLE = "Build"
 SUB = "The agents behind every other tab — what they own, what they may do alone, and what has to escalate"
 
+ABOUT = {
+    "headline": "The system that produces the other seven tabs",
+    "goal": ("Everything else here is output. This is the machine. It documents what "
+             "each agent owns, what it is permitted to do without a human, and what "
+             "forces one in — and it ends with a section on where the system should not "
+             "be trusted, which is the part usually left out."),
+    "now": ("Seven agents described as configuration. The counts and the data-contract "
+            "table are computed from the real files in this repository, not written by "
+            "hand."),
+    "live": ("The same seven, pointed at real connectors. Six are live in the demo's "
+             "fiction; the seventh still runs behind a human gate, and the reason is "
+             "stated rather than glossed."),
+    "does": [
+        "Read what each agent reads, what it writes, and the exact conditions that make it escalate to a person",
+        "The data-contract table is generated from the validator itself, so the documentation cannot drift from the schema it describes",
+        "Every figure is a count over the real files — nothing on this page is a claim you have to take on faith",
+        "The last section lists what this gets wrong, including a priority call made on inference that could be mistaken",
+    ],
+}
+
 AUTONOMY_TONE = {"acts": "g", "drafts": "b", "flags": "a"}
 AUTONOMY_LABEL = {
     "acts": "Acts alone",

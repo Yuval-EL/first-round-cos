@@ -14,6 +14,25 @@ NAV = "Inbox"
 TITLE = "Inbox"
 SUB = "Everything that arrived, ranked by what it costs to be slow — with the reply already written"
 
+ABOUT = {
+    "headline": "Triaged, explained, and already drafted",
+    "goal": ("The posting says a large part of this job is the inbox. The work is not "
+             "sorting mail — it is noticing that the message which looks least urgent "
+             "is the one that matters. Every ranking here carries the reasoning behind "
+             "it, so the judgment can be argued with rather than trusted."),
+    "now": ("Twelve invented messages from invented senders, written to include the "
+            "cases that are actually hard to call."),
+    "live": ("A read-only mail connector every ten minutes. The triage agent assigns "
+             "priority and SLA, states the real ask in one line, and drafts a reply in "
+             "the sender's own register. It never sends, archives, labels, or deletes."),
+    "does": [
+        "Filter by priority or action, and search across senders, subjects, and reasoning",
+        "Read any message with its drafted reply side by side, and copy the draft in one click",
+        "'Why it ranks here' explains every priority call, including the ones based on inference rather than evidence",
+        "Flags the patterns worth noticing — a second ask in five days, a broken mail-merge tag, a deadline buried in a paragraph",
+    ],
+}
+
 PRIORITY_TONE = {1: "r", 2: "a", 3: "b", 4: "n"}
 PRIORITY_LABEL = {1: "P1", 2: "P2", 3: "P3", 4: "P4"}
 ACTION_LABEL = {

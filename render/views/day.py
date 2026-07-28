@@ -12,6 +12,24 @@ SLUG = "day"
 NAV = "Day"
 TITLE = "Day"
 
+ABOUT = {
+    "headline": "Ready for every meeting, and honest about the ones worth killing",
+    "goal": ("Being prepared is table stakes. The harder job is protecting the day — "
+             "noticing that a thirty-minute vendor demo has claimed the end of the most "
+             "decision-heavy afternoon of the week, and saying so."),
+    "now": ("Six invented meetings on a fixed date, one of which the system recommends "
+            "declining."),
+    "live": ("The prep agent runs at 17:00 the night before and again an hour before "
+             "anything newly added, pulling from the calendar, the open threads with "
+             "each attendee, and the relevant diligence brief."),
+    "does": [
+        "Open 'Prep' on any meeting for the objective, what you need to know, what is worth asking, and what to watch out for",
+        "Every meeting lists the open threads you have with the people in it, so nothing is discussed twice or forgotten once",
+        "Tracks the largest unbooked block in the day — usually the only place real work fits",
+        "Flags meetings with no stated objective twelve hours out",
+    ],
+}
+
 KIND_TONE = {"Investment": "r", "Portfolio": "g", "Co-investor": "b",
              "Internal": "ac", "Vendor": "n", "LP": "a"}
 

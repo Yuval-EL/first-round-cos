@@ -14,6 +14,26 @@ NAV = "Projects"
 TITLE = "Projects"
 SUB = "What is moving, what is not, and specifically what is waiting on you"
 
+ABOUT = {
+    "headline": "Separate what is blocked on you from everything else",
+    "goal": ("Most project trackers tell you the status of everything, which is another "
+             "way of telling you nothing. The only column here that earns its place is "
+             "'blocked on' — because a project waiting on a partner is a different kind "
+             "of problem from one waiting on a vendor."),
+    "now": ("Five invented projects — an LP annual meeting, a founder dinner, a "
+            "speaking calendar, and the AI rollout that produced this system."),
+    "live": ("The project agent reads trackers and the threads attached to each "
+             "project, proposes a status from evidence, and asks the owner to confirm "
+             "it. It escalates anything blocked on the principal for more than three "
+             "days, or any due date that passes without a status change."),
+    "does": [
+        "Sorted so blocked work is at the top and shipped work is out of the way",
+        "'Where it stands' is a sentence about reality, not a percentage",
+        "Open questions are lifted into a callout above the table rather than buried in a row",
+        "Each project links to the people involved, resolved from the same records the rest of the system uses",
+    ],
+}
+
 STATUS_TONE = {"On track": "g", "At risk": "a", "Blocked": "r", "Shipped": "b"}
 STATUS_ORDER = ["Blocked", "At risk", "On track", "Shipped"]
 

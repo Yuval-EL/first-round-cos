@@ -14,6 +14,26 @@ NAV = "Diligence"
 TITLE = "Diligence"
 SUB = "First-pass briefs, written before a partner spends a minute — with confidence and sources attached"
 
+ABOUT = {
+    "headline": "The first pass, done before you open the deck",
+    "goal": ("A generated memo is only worth reading if you can tell where every claim "
+             "came from and how confident it is. Each brief ends in 'what would have to "
+             "be true' — falsifiable statements rather than enthusiasm — because that "
+             "is the part a partner can actually argue with."),
+    "now": ("Three written briefs on invented companies, plus the queue behind them. "
+            "Companies with no brief show why, rather than being hidden."),
+    "live": ("The diligence agent runs on entry to Diligence and again each Thursday, "
+             "reading founder materials, public sources, and reference-call notes. It "
+             "still writes behind a human gate: twenty-two briefs read so far, two "
+             "contained a number that could not be traced to a source."),
+    "does": [
+        "Move between companies from the table of contents — the queue is ordered by urgency, not alphabetically",
+        "Every brief carries a confidence level and its sources; anything unattributable was left out rather than estimated",
+        "Open questions are kept explicit and carried into the next call rather than quietly dropped",
+        "Passed and portfolio companies show their status instead of an empty page",
+    ],
+}
+
 CONFIDENCE_TONE = {"high": "g", "medium": "a", "low": "n"}
 
 

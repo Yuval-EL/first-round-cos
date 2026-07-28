@@ -14,6 +14,25 @@ NAV = "Network"
 TITLE = "Network"
 SUB = "Who matters, how long it has been, and the shortest warm path to anyone new"
 
+ABOUT = {
+    "headline": "Catch drift before it becomes loss",
+    "goal": ("Relationships do not break, they fade, and they fade quietly enough that "
+             "nothing ever prompts you. This tab exists to make the fading visible — "
+             "and to stay silent about people who are simply busy, because a tool that "
+             "cries wolf gets ignored."),
+    "now": ("Ten invented people with explicit cadences — founders, co-investors, an "
+            "LP, an angel."),
+    "live": ("The relationship agent reads mail metadata and calendar history daily — "
+             "who, when, and which direction, not content. It never sends a 'just "
+             "checking in' on anyone's behalf. It tells you who to call."),
+    "does": [
+        "Sorted by how far past cadence someone is, so the top of the page is the actual work",
+        "Filter to who you owe a reply, who is drifting, or by relationship tier",
+        "Shows the shortest warm path to anyone you want an introduction to",
+        "Each card links to everywhere that person appears — deal flow, inbox, calendar — with no duplicated data behind it",
+    ],
+}
+
 TIER_TONE = {"core": "ac", "active": "b", "dormant": "n"}
 TIER_LABEL = {"core": "Core", "active": "Active", "dormant": "Dormant"}
 

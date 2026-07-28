@@ -214,6 +214,47 @@ pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fon
 pre code { background: none; border: none; padding: 0; color: inherit; }
 pre .c { color: #6f7891; } pre .k { color: #a5a2ff; } pre .s { color: #7fd0a8; }
 
+/* ============================ about modal ============================ */
+.ovl { position: fixed; inset: 0; z-index: 100; padding: 22px; display: none;
+       background: rgba(10,12,18,.52); }
+.ovl.open { display: grid; place-items: center; }
+.modal { background: var(--surface); border-radius: 16px; width: 100%; max-width: 545px;
+         max-height: 86vh; display: flex; flex-direction: column; overflow: hidden;
+         box-shadow: var(--sh3); }
+.modal-h { padding: 19px 23px 15px; border-bottom: 1px solid var(--line); }
+.modal-h .eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
+                    text-transform: uppercase; color: var(--accent); }
+.modal-h h3 { margin-top: 5px; font-size: 19px; font-weight: 700; letter-spacing: -.026em; }
+.modal-h p { margin-top: 7px; font-size: 13.4px; line-height: 1.6; color: var(--ink-2); }
+.modal-b { padding: 16px 23px 18px; overflow-y: auto; }
+.modal-b h4 { font-size: 10.5px; font-weight: 700; letter-spacing: .085em; text-transform: uppercase;
+              color: var(--ink-3); margin-bottom: 7px; }
+.modal-b h4:not(:first-child) { margin-top: 17px; }
+.modal-b ul { margin: 0; list-style: none; }
+.modal-b li { position: relative; padding-left: 15px; font-size: 13.2px; line-height: 1.58;
+              color: var(--ink-2); margin-top: 5px; }
+.modal-b li::before { content: ""; position: absolute; left: 2px; top: 8px; width: 4px; height: 4px;
+                      border-radius: 50%; background: var(--line-2); }
+.srcpair { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.src { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2); }
+.src.live { border-color: var(--accent-line); background: var(--accent-soft); }
+.src .lbl { display: flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700;
+            letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.src.live .lbl { color: var(--accent); }
+.src .lbl::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--a); }
+.src.live .lbl::before { background: var(--accent); }
+.src p { margin-top: 6px; font-size: 12.4px; line-height: 1.55; color: var(--ink-2); }
+.modal-f { padding: 13px 23px 15px; border-top: 1px solid var(--line); background: var(--surface-2);
+           display: flex; align-items: center; gap: 9px; }
+.modal-f .skip { font-size: 12.3px; color: var(--ink-3); margin-left: auto; }
+.modal-f .skip:hover { color: var(--ink-2); text-decoration: underline; }
+.iconbtn { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600;
+           color: var(--ink-2); border: 1px solid var(--line); background: var(--surface);
+           border-radius: 999px; padding: 3px 10px 3px 8px; box-shadow: var(--sh1); white-space: nowrap; }
+.iconbtn:hover { border-color: var(--line-2); color: var(--ink); }
+.iconbtn svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none;
+               stroke-linecap: round; stroke-linejoin: round; }
+
 /* ============================ tables ============================ */
 .tbl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--rad);
        box-shadow: var(--sh1); overflow: hidden; }
@@ -440,6 +481,13 @@ td .t2 { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); 
   .slot::before { display: none; }
   .slot .clock { position: static; width: auto; text-align: left; margin-bottom: 5px; }
   .slot .clock .dur { display: inline; margin-left: 6px; }
+  .ovl { padding: 12px; }
+  .srcpair { grid-template-columns: 1fr; }
+  .modal { max-height: 88vh; }
+  .modal-h { padding: 16px 17px 13px; }
+  .modal-h h3 { font-size: 17px; }
+  .modal-b { padding: 14px 17px 16px; }
+  .modal-f { padding: 12px 17px 13px; }
 }
 </style>
 </head>
@@ -476,6 +524,7 @@ td .t2 { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); 
       <div class="sub">First-pass briefs, written before a partner spends a minute — with confidence and sources attached</div>
     </div>
     <div class="right">
+      <button type="button" class="iconbtn" data-about-open aria-label="About this tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.5"/></svg>About</button>
       <span class="demo-chip">Demo data</span>
       <span class="stamp">Tue Jul 28, 06:40 ET</span>
     </div>
@@ -490,6 +539,28 @@ td .t2 { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); 
     </footer>
   </main>
 </div>
+</div>
+<div class="ovl" role="dialog" aria-modal="true" aria-labelledby="ab-t">
+  <div class="modal">
+    <div class="modal-h">
+      <div class="eyebrow">Diligence</div>
+      <h3 id="ab-t">The first pass, done before you open the deck</h3>
+      <p>A generated memo is only worth reading if you can tell where every claim came from and how confident it is. Each brief ends in &#x27;what would have to be true&#x27; — falsifiable statements rather than enthusiasm — because that is the part a partner can actually argue with.</p>
+    </div>
+    <div class="modal-b">
+      <h4>Where the data comes from</h4>
+      <div class="srcpair">
+        <div class="src"><div class="lbl">On this demo</div><p>Three written briefs on invented companies, plus the queue behind them. Companies with no brief show why, rather than being hidden.</p></div>
+        <div class="src live"><div class="lbl">Running live</div><p>The diligence agent runs on entry to Diligence and again each Thursday, reading founder materials, public sources, and reference-call notes. It still writes behind a human gate: twenty-two briefs read so far, two contained a number that could not be traced to a source.</p></div>
+      </div>
+      <h4>What you can do here</h4>
+      <ul><li>Move between companies from the table of contents — the queue is ordered by urgency, not alphabetically</li><li>Every brief carries a confidence level and its sources; anything unattributable was left out rather than estimated</li><li>Open questions are kept explicit and carried into the next call rather than quietly dropped</li><li>Passed and portfolio companies show their status instead of an empty page</li></ul>
+    </div>
+    <div class="modal-f">
+      <button type="button" class="btn pri" data-about-close>Got it</button>
+      <button type="button" class="skip" data-about-skip>Skip these on every tab</button>
+    </div>
+  </div>
 </div>
 <script>
 (function () {
@@ -614,6 +685,74 @@ td .t2 { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-3); 
       try { document.execCommand('copy'); flash(); } catch (err) {}
       document.body.removeChild(ta);
     });
+  });
+
+  // --- "what is this tab" explainer, shown once per tab ----------------------
+  safe(function () {
+    var ovl = document.querySelector('.ovl');
+    if (!ovl) return;
+    var KEY = 'frc:seen:' + SLUG, ALL = 'frc:seen:all';
+
+    // localStorage throws in some private-browsing and file:// contexts.
+    // Fall back to sessionStorage; if neither works, never auto-open — an
+    // explainer that reappears on every navigation is worse than none.
+    var store = (function () {
+      var candidates = [];
+      try { candidates.push(window.localStorage); } catch (e) {}
+      try { candidates.push(window.sessionStorage); } catch (e) {}
+      for (var i = 0; i < candidates.length; i++) {
+        try {
+          candidates[i].setItem('frc:probe', '1');
+          candidates[i].removeItem('frc:probe');
+          return candidates[i];
+        } catch (e) {}
+      }
+      return null;
+    })();
+
+    var last = null;
+    function open() {
+      last = document.activeElement;
+      ovl.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      var b = ovl.querySelector('.btn.pri');
+      if (b) b.focus();
+    }
+    function close() {
+      ovl.classList.remove('open');
+      document.body.style.overflow = '';
+      if (last && last.focus) last.focus();
+    }
+    function remember(all) {
+      if (!store) return;
+      try {
+        store.setItem(KEY, '1');
+        if (all) store.setItem(ALL, '1');
+      } catch (e) {}
+    }
+
+    var opener = document.querySelector('[data-about-open]');
+    if (opener) opener.addEventListener('click', open);
+    ovl.querySelectorAll('[data-about-close]').forEach(function (b) {
+      b.addEventListener('click', function () { remember(false); close(); });
+    });
+    var skip = ovl.querySelector('[data-about-skip]');
+    if (skip) skip.addEventListener('click', function () { remember(true); close(); });
+    ovl.addEventListener('click', function (e) {
+      if (e.target === ovl) { remember(false); close(); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && ovl.classList.contains('open')) { remember(false); close(); }
+    });
+
+    var seen = false;
+    if (store) {
+      try { seen = !!(store.getItem(KEY) || store.getItem(ALL)); } catch (e) { seen = true; }
+    } else {
+      seen = true;
+    }
+    // Don't cover a card the visitor deep-linked to.
+    if (!seen && !location.hash) open();
   });
 
   // --- reveal a deep-linked card --------------------------------------------

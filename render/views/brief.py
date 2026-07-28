@@ -14,6 +14,23 @@ SLUG = "brief"
 NAV = "Brief"
 TITLE = "Brief"
 
+ABOUT = {
+    "headline": "The whole day on one page, decisions first",
+    "goal": ("A chief of staff does not produce seven dashboards, they produce one "
+             "morning brief. This page answers a single question — what actually "
+             "needs you today — and gets out of the way."),
+    "now": ("Compiled from the seven other tabs in this demo. Every company, person, "
+            "and message below is invented."),
+    "live": ("The same compiler, run at 06:40 each morning against the real output of "
+             "the six agents that watch mail, calendar, deal flow, and the network."),
+    "does": [
+        "Collects every pending decision from deals, inbox, meetings, and projects into one list, ranked by deadline",
+        "Shows a recommendation on each one, so the question arrives already thought about",
+        "Links out to the tab that owns each item — this page restates nothing, so it can never disagree with a module",
+        "Every number on it is counted at build time, never typed by hand",
+    ],
+}
+
 KIND_TONE = {"Investment": "r", "Portfolio": "g", "Co-investor": "b",
              "Internal": "ac", "Vendor": "n", "LP": "a"}
 PRIORITY_TONE = {1: "r", 2: "a", 3: "b", 4: "n"}
